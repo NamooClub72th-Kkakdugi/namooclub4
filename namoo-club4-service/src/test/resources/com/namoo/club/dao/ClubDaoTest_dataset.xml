@@ -1,0 +1,26 @@
+<dataset>
+	<user email="ekdgml" name="박상희" password="asdf" />
+	<user email="hong"   name="홍길동" password="1234" />
+	<user email="wntjd" name="이주성" password="qwer" />
+	
+	<community com_no="1" com_nm="com1" com_des="com1_des" com_date="2014-04-10 14:36:50" />
+	<community com_no="2" com_nm="com2" com_des="com2_des" com_date="2014-04-10 14:50:50" />
+	
+	<communitymember com_no="1" email="ekdgml" is_manager="1" />
+	<communitymember com_no="1" email="hong" is_manager="2" />
+	
+	<clubcategory category_no="1" com_no="1" category_nm="category1" />
+	<clubcategory category_no="2" com_no="1" category_nm="category2" />
+	<clubcategory category_no="1" com_no="2" category_nm="category1" />
+	
+	
+	<club club_no="1" com_no="1" category_no="1" club_nm="club1" club_des="club1_des"  club_date="2014-04-10 14:38:40" />
+	<club club_no="2" com_no="1" category_no="1" club_nm="club2" club_des="club2_des"  club_date="2014-04-10 14:40:00" />
+	<club club_no="3" com_no="1" category_no="2" club_nm="club3" club_des="club3_des"  club_date="2014-04-10 14:45:00" />
+	<club club_no="4" com_no="1" category_no="2" club_nm="club4" club_des="club4_des"  club_date="2014-04-10 14:50:00" />
+	
+	<clubmember club_no="1" email="ekdgml" type="a" />
+	<clubmember club_no="1" email="hong" type="b" />
+	<clubmember club_no="1" email="wntjd" type="c" />
+	
+</dataset>
