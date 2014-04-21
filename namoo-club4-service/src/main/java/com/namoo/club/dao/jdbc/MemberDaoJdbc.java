@@ -160,7 +160,7 @@ public class MemberDaoJdbc implements MemberDao {
 		try {
 			conn = dataSource.getConnection();
 			String sql = "SELECT a.com_no, a.email, a.is_manager, b.name " +
-						"FROM communitymember A JOIN user b ON a.email = b.email WHERE com_no = ?";
+						"FROM communitymember A JOIN user b ON a.email = b.email WHERE com_no = ? ORDER BY com_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, comNo);
 			
@@ -432,7 +432,7 @@ public class MemberDaoJdbc implements MemberDao {
 	    
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email = b.email WHERE club_no = ?";
+			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email = b.email WHERE club_no = ? ORDER BY club_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
 			
@@ -497,7 +497,7 @@ public class MemberDaoJdbc implements MemberDao {
 		List<ClubManager> managers = new ArrayList<>();
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember a JOIN user b ON a.email = b.email WHERE club_no = ? AND type IN ('a','b')";
+			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember a JOIN user b ON a.email = b.email WHERE club_no = ? AND type IN ('a','b') ORDER BY club_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
 			

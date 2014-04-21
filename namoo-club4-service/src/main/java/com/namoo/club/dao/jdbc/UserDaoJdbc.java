@@ -33,7 +33,7 @@ public class UserDaoJdbc implements UserDao {
 
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT email, name, password FROM user";
+			String sql = "SELECT email, name, password FROM user ORDER BY email";
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 

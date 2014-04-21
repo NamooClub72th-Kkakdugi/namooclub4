@@ -35,7 +35,7 @@ public class ClubDaoJdbc implements ClubDao {
 		try {
 			conn = dataSource.getConnection();
 			
-			String sql = "SELECT club_no, category_no, club_nm, club_des, club_date FROM club WHERE com_no=?";
+			String sql = "SELECT club_no, category_no, club_nm, club_des, club_date FROM club WHERE com_no=? ORDER BY club_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, comNo);
 			
