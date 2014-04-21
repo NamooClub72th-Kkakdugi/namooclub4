@@ -93,6 +93,15 @@ public interface ClubService {
 	
 	/**
 	 * 해당 커뮤니티에
+	 * 자신이 회원으로 있지 않는 클럽 목록 조회
+	 * @param email
+	 * @param comNo
+	 * @return
+	 */
+	public List<Club> findNotBelogClubs(String email, int comNo);
+	
+	/**
+	 * 해당 커뮤니티에
 	 * 자신이 관리하는 클럽 목록조회
 	 * 
 	 * @param email

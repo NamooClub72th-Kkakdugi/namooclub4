@@ -46,8 +46,7 @@
 			<div class="col-lg-12">
 				<!-- ★★★ Tab Menu -->
 				<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					<li class="active"><a href="#joined" data-toggle="tab">가입
-							클럽</a></li>
+					<li class="active"><a href="#joined" data-toggle="tab">가입 클럽</a></li>
 					<li class=""><a href="#unjoinded" data-toggle="tab">미가입 클럽</a></li>
 				</ul>
 

@@ -156,6 +156,21 @@ public class ClubServiceLogic implements ClubService {
 		}
 		return belongs;
 	}
+	
+	@Override
+	public List<Club> findNotBelogClubs(String email, int comNo) {
+		//
+		List<Club> clubs = clubDao.readAllClubs(comNo);
+		if (clubs == null)
+			return null;
+
+		for(Club club : clubs) {
+			if (memberDao.readClubMember(club.getClubNo(), email) != null) {
+				clubs.remove(club);
+			}
+		}
+		return clubs;
+	}
 
 	@Override
 	public List<Club> findManagedClubs(String email, int comNo) {
@@ -234,5 +249,7 @@ public class ClubServiceLogic implements ClubService {
 
 		return memberDao.readClubKingManager(clubNo);
 	}
+
+	
 
 }
