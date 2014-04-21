@@ -48,7 +48,7 @@
 
 				<div class="well">
 					<p>회원가입을 위해 아래 내용들을 작성해 주세요.</p>
-					<form class="form-horizontal" action="${ctx}/user/joinCheck.do" method="post">
+					<form class="form-horizontal" action="${ctx}/joinCheck" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">이름</label>

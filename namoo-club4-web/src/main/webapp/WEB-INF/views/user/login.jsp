@@ -16,11 +16,11 @@
 			<h2 class="form-signin-heading">나무 커뮤니티</h2>
 		</div>
 		<!-- form -->
-		<form class="form-signin" action="./login.do" method="post">
+		<form class="form-signin" action="${ctx}/login" method="post">
 			<input type="text" name="loginId" class="form-control" id="inputEmail" placeholder="아이디" required> <input type="password" name="password" class="form-control" id="inputPassword" placeholder="비밀번호" required>
 			<div class="row form-btn">
 				<button class="btn btn-large btn-warning" type="submit">로그인</button>
-				<button class="btn btn-large btn-default" onclick="location.href='${ctx}/view/user/joinInput.xhtml'; return false;">회원가입</button>
+				<button class="btn btn-large btn-default" onclick="location.href='${ctx}/join'; return false;">회원가입</button>
 			</div>
 		</form>
 		<!-- footer -->
