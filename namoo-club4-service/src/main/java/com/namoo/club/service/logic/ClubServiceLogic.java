@@ -161,15 +161,40 @@ public class ClubServiceLogic implements ClubService {
 	public List<Club> findNotBelogClubs(String email, int comNo) {
 		//
 		List<Club> clubs = clubDao.readAllClubs(comNo);
-		if (clubs == null)
-			return null;
-
-		for(Club club : clubs) {
+		List<Club> belongs = new ArrayList<>();
+		for (Club club : clubs) {
 			if (memberDao.readClubMember(club.getClubNo(), email) != null) {
-				clubs.remove(club);
+				belongs.add(club);
 			}
 		}
-		return clubs;
+		List<Club> unjoinClubs = new ArrayList<Club>(clubs);
+		List<Club> remove = new ArrayList<Club>();
+
+		for (Club joinClub : belongs) {
+			for (Club club: clubs) {
+				if (club.getClubNo() == (joinClub.getClubNo())) {
+					remove.add(club);
+					break;
+				}
+			}
+		}
+		if (!remove.isEmpty()) {
+			unjoinClubs.removeAll(remove);
+		}
+		return unjoinClubs;
+		
+		
+		
+		// List<Club> clubs = clubDao.readAllClubs(comNo);
+		// if (clubs == null)
+		// return null;
+		//
+		// for(Club club : clubs) {
+		// if (memberDao.readClubMember(club.getClubNo(), email) != null) {
+		// clubs.remove(club);
+		// }
+		// }
+		// return clubs;
 	}
 
 	@Override

@@ -1,6 +1,10 @@
 package com.namoo.club.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.namoo.club.service.facade.ClubService;
 
 import dom.entity.Club;
+import dom.entity.ClubMember;
+import dom.entity.SocialPerson;
 
 /**
  * 클럽 컨트롤러
@@ -23,10 +29,18 @@ public class ClubController {
 	private ClubService clubService;
 	
 	@RequestMapping(value="/club/clubList", method = RequestMethod.GET)
-	public ModelAndView clubList(@PathVariable("comNo") int comNo) {
+	public ModelAndView clubList(@PathVariable("comNo") int comNo, HttpServletRequest req) {
 		//
-		List<Club> clubs = clubService.findAllClubs(comNo);
-		return new ModelAndView("club", "club", clubs);
+		SocialPerson person = (SocialPerson) req.getSession().getAttribute("loginUser");
+		String email = person.getEmail();
+		List<Club> belongClubs = clubService.findBelongClubs(email, comNo);
+		List<Club> notBelongClubs = clubService.findNotBelogClubs(email, comNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("joinClubs", belongClubs);
+		map.put("unJoinClubs", notBelongClubs);
+		
+		return new ModelAndView("club", map);
 	}
 	
 	@RequestMapping(value="/club/clubCreateInput", method = RequestMethod.GET)
@@ -73,13 +87,14 @@ public class ClubController {
 		return "/club/clubList";
 	}
 	
-//	@RequestMapping(value="/club/clubMemberList", method=RequestMethod.GET)
-//	public String clubMemberList(@RequestParam("clubNo") int clubNo) {
-//		//
-//		List<ClubMember> clubMembers = clubService.findAllClubMember(clubNo);
-//		
-////		return 
-//	}
+	@RequestMapping(value="/club/clubMemberList", method=RequestMethod.GET)
+	public ModelAndView clubMemberList(@RequestParam("clubNo") int clubNo) {
+		//
+		List<ClubMember> clubMembers = clubService.findAllClubMember(clubNo);
+		
+		return new ModelAndView("clubMemberList", "clubMemberList", clubMembers);  
+		
+	}
 	
 	
 	
