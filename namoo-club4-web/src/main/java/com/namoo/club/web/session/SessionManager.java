@@ -31,9 +31,10 @@ public class SessionManager {
 	 * 생성자
 	 * @param req
 	 */
-	public SessionManager(HttpServletRequest req) {
+	public SessionManager(HttpServletRequest req, UserService userService) {
 		//
 		session = req.getSession();
+		this.userService = userService; 
 	 }
 	
 	//------------------------------------------------------------------------------------------------------------------
@@ -41,13 +42,14 @@ public class SessionManager {
 	/**
 	 * 로그인하기
 	 * 
-	 * @param userId
+	 * @param email
 	 * @param password
 	 * @return
 	 */
-	public boolean login(String userId, String password) {
+	public boolean login(String email, String password) {
 		//
-		if (userService.loginAsTowner(userId, password)) {
+		if (userService.loginAsTowner(email, password)) {
+			session.setAttribute("loginUser", userService.findTowner(email));
 			return true;
 		} else {
 			return false;

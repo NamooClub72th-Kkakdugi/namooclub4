@@ -203,6 +203,33 @@ public class CommunityServiceLogic implements CommunityService {
 		}
 		return belongs;
 	}
+	
+	@Override
+	public List<Community> findNotBelongCommunities(String email) {
+		//
+		List<Community> communities = dao.readAllCommunities();
+		List<Community> belongs = new ArrayList<>();
+		for (Community community : communities) {
+			if (memberDao.readCommunityMember(community.getComNo(), email) != null) {
+				belongs.add(community);
+			}
+		}
+		List<Community> unjoinCommunities = new ArrayList<Community>(communities);
+		List<Community> remove = new ArrayList<Community>();
+				
+		for (Community joinCommunity : belongs) {
+			for (Community community : communities) {
+				if (community.getComNo() == (joinCommunity.getComNo())) {
+					remove.add(community);
+					break;
+				}
+			}
+		}
+		if (!remove.isEmpty()) {
+			unjoinCommunities.removeAll(remove);
+		}
+		return unjoinCommunities;
+	}
 
 	@Override
 	public List<Community> findManagedCommunities(String email) {

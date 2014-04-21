@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -54,7 +55,7 @@
 										<span class="label label-warning">관리자</span>
 										</c:if>
 										<h4>
-											<a href="${ctx}/club/clubList.do?comNo=${community.communityNo}">${community.name}&nbsp;(회원수 : ${community.members.size()} 클럽수 : ${community.clubs.size()})</a>
+											<a href="${ctx}/club/clubList?comNo=${community.communityNo}">${community.name}&nbsp;(회원수 : ${community.members.size()} 클럽수 : ${community.clubs.size()})</a>
 										</h4>
 										<p>${community.description}</p>
 										<span class="badge">개설 날짜 : <fmt:formatDate value="${community.openDate}" pattern="yyyy-MM-dd"/></span>
@@ -80,7 +81,7 @@
 						</div>
 						<ul class="list-group">
 							<li class="list-group-item">
-							<c:forEach var="community" items="${unjoincommunities}">
+							<c:forEach var="community" items="${unJoinCommunities}">
 									<li class="list-group-item"><span class="badge"></span>
 										<h4>
 										<input type="hidden" value="${community.communityNo}" />

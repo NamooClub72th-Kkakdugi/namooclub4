@@ -111,6 +111,13 @@ public interface CommunityService {
 	public List<Community> findBelongCommunities(String email);
 	
 	/**
+	 * 미가입 커뮤니티 목록조회
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public List<Community> findNotBelongCommunities(String email);
+	/**
 	 * 자신이 관리하는 커뮤니티 목록조회
 	 * 
 	 * @param email
