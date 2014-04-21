@@ -30,7 +30,7 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest req, @RequestParam("loginId") String userId, @RequestParam("password") String password) {
 		//
-		SessionManager manager = new SessionManager(req, service);
+		SessionManager manager = new SessionManager(req);
 		if (manager.login(userId, password)) {
 			return new ModelAndView(new RedirectView("/community/comList", true));  //true로 주면 앞에 contextpath가 저절로 붙어서 나옴!
 		} else {

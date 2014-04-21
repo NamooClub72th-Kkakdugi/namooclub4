@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.CommunityService;
 import com.namoo.club.web.controller.pres.PresCommunity;
+import com.namoo.club.web.session.SessionManager;
 
-import dom.entity.Club;
 import dom.entity.ClubCategory;
 import dom.entity.Community;
 import dom.entity.SocialPerson;
@@ -63,11 +62,15 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/comCreate", method=RequestMethod.POST)
-	public String createCommunity(HttpServletRequest req, @RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr")List<ClubCategory> categories) {
+	public String createCommunity(HttpServletRequest req, @RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr") List<String> categories) {
 		//
-		SocialPerson person = (SocialPerson) req.getSession().getAttribute("loginUser"); 
-		service.registCommunity(communityName, description, person.getEmail(), categories);
-		return "/community/comList";
+		//커맨드 객체에 담아서 파람으로 받아온다.
+		//커맨드 객체에서 String categories를 Clubcategory로 변환!
+//		SessionManager manager = new SessionManager(req); 
+//		
+//		service.registCommunity(communityName, description, manager.getLoginEmail(), categories);
+//		return "/community/comList";
+		return null;
 	}
 	
 	//-----------------------------------------------------------------------------------------

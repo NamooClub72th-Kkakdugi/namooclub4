@@ -3,7 +3,13 @@ package com.namoo.club.web.session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.namoo.club.service.facade.UserService;
+
+import dom.entity.SocialPerson;
 
 /**
  * 로그인 세션을 관리하는 클래스
@@ -24,10 +30,12 @@ public class SessionManager {
 	 * 생성자
 	 * @param req
 	 */
-	public SessionManager(HttpServletRequest req, UserService userService) {
+	public SessionManager(HttpServletRequest req) {
 		//
 		session = req.getSession();
-		this.userService = userService; 
+		
+		WebApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(req.getSession().getServletContext());
+		this.userService = ac.getBean(UserService.class); 
 	 }
 	
 	//------------------------------------------------------------------------------------------------------------------
@@ -64,5 +72,14 @@ public class SessionManager {
 	public boolean isLogin() {
 		//
 		return session.getAttribute("loginId") != null ? true : false;
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getLoginEmail() {
+		return ((SocialPerson)session.getAttribute("loginUser")).getEmail();
 	}
 }
