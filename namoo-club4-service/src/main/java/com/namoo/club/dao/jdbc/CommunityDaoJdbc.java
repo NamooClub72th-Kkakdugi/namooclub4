@@ -194,7 +194,7 @@ public class CommunityDaoJdbc implements CommunityDao {
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT category_no, com_no, category_nm FROM clubcategory WHERE com_no=?";
+			String sql = "SELECT category_no, com_no, category_nm FROM clubcategory WHERE com_no=? ORDER BY category_no";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, comNo);

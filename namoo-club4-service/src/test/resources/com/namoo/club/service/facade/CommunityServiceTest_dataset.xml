@@ -5,6 +5,7 @@
 	
 	<community com_no="1" com_nm="com1" com_des="com1_des" com_date="2014-04-10 14:36:50" />
 	<community com_no="2" com_nm="com2" com_des="com2_des" com_date="2014-04-10 14:50:50" />
+	<community com_no="3" com_nm="com3" com_des="com3_des" com_date="2014-04-21 14:23:50" />
 	
 	<clubcategory category_no="1" com_no="1" category_nm="category1" />
 	<clubcategory category_no="2" com_no="1" category_nm="category2" />

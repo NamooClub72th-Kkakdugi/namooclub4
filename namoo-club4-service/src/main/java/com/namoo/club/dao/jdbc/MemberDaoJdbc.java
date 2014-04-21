@@ -432,7 +432,7 @@ public class MemberDaoJdbc implements MemberDao {
 	    
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email = b.email WHERE club_no = ? ORDER BY club_no";
+			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email = b.email WHERE club_no = ? ORDER BY email";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
 			
