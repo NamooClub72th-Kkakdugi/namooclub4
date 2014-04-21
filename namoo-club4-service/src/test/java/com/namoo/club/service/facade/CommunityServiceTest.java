@@ -37,11 +37,11 @@ public class CommunityServiceTest extends DbCommonTest{
 		ClubCategory category2 = new ClubCategory(2, 3, "category2"); 
 		categories.add(category1);
 		categories.add(category2);
-		Community community = communityService.registCommunity("com3", "com3_des", "ekdgml", categories);
+		Community community = communityService.registCommunity("com4", "com4_des", "ekdgml", categories);
 		
 		//검증
 		community = communityService.findCommunity(community.getComNo());
-		assertEquals(3, communityService.findAllCommunities().size());
+		assertEquals(4, communityService.findAllCommunities().size());
 		assertThat(community.getManager().getEmail(), is("ekdgml"));
 		assertThat(community.getMembers().size(), is(1));
 	}
@@ -91,7 +91,7 @@ public class CommunityServiceTest extends DbCommonTest{
 		List<Community> communities = communityService.findAllCommunities();
 		
 		//검증
-		assertEquals(2, communities.size());
+		assertEquals(3, communities.size());
 		assertThat(communities.get(0).getName(), is("com1"));
 	}
 
@@ -102,7 +102,7 @@ public class CommunityServiceTest extends DbCommonTest{
 		communityService.removeCommunity(1, true);
 		
 		List<Community> communities = communityService.findAllCommunities();
-		assertEquals(1, communities.size());
+		assertEquals(2, communities.size());
 		assertThat(communities.get(0).getName(), is("com2"));
 	}
 

@@ -27,11 +27,11 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testAddCommunityManager() {
 		//
-		CommunityManager comManager = new CommunityManager(1, new SocialPerson("wntjd", "이주성"));
-		dao.addCommunityManager(1, comManager);
+		CommunityManager comManager = new CommunityManager(3, new SocialPerson("wntjd", "이주성"));
+		dao.addCommunityManager(3, comManager);
 		//검증
-		assertEquals("wntjd", dao.readCommunityManager(1).getEmail());
-		assertEquals("이주성", dao.readCommunityManager(1).getName());
+		assertEquals("wntjd", dao.readCommunityManager(3).getEmail());
+		assertEquals("이주성", dao.readCommunityManager(3).getName());
 	}
 
 	@Test
