@@ -21,7 +21,7 @@
 						<h1>나무 커뮤니티와 함께!</h1>
 						<p>나무 커뮤니티와 함께 특정 취미와 관심사, 특정 그룹 또는 조직에 관한 대화를 시작하세요.</p>
 						<p>
-							<a href="${ctx}/community/comCreateInput.xhtml?name=${name}" class="btn btn-warning btn-lg">커뮤니티 개설하기</a>
+							<a href="${ctx}/community/comCreate" class="btn btn-warning btn-lg">커뮤니티 개설하기</a>
 						</p>
 					</div>
 				</div>

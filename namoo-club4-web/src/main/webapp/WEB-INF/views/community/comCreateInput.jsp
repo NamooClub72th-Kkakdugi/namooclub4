@@ -35,7 +35,7 @@
 
 				<div class="well">
 					<p>나와 같은 관심사를 가진 멤버를 모집하고 열심히 운영하여 커뮤니티를 성장시켜 보세요.</p>
-					<form class="form-horizontal" action="${ctx}/community/comCreateCheck.do" method="post">
+					<form class="form-horizontal" action="${ctx}/community/comCreateCheck" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">커뮤니티명</label>
@@ -58,7 +58,7 @@
                            		<label class="col-lg-2 control-label">클럽 카테고리</label>
 
                             	<div class="col-lg-10">
-                              	 	 <input type="text" class="form-control" placeholder="카테고리 1" name="ctgr1">
+                              	 	<input type="text" class="form-control" placeholder="카테고리 1" name="ctgr1">
 	                             	<input type="text" class="form-control" placeholder="카테고리 2" name="ctgr2">
 	                                <input type="text" class="form-control" placeholder="카테고리 3" name="ctgr3">
 	                                <input type="text" class="form-control" placeholder="카테고리 4" name="ctgr4">

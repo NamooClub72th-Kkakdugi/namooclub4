@@ -7,15 +7,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.CommunityService;
 import com.namoo.club.web.controller.pres.PresCommunity;
 
+import dom.entity.Club;
+import dom.entity.ClubCategory;
 import dom.entity.Community;
 import dom.entity.SocialPerson;
 
@@ -44,10 +48,26 @@ public class CommunityController {
 		return new ModelAndView("/community/comList", map);
 	}
 	
-	@RequestMapping
+	@RequestMapping(value="/comCreate", method=RequestMethod.GET)
 	public String createCommunity() {
 		//
 		return "/community/comCreateInput";
+	}
+	
+	@RequestMapping(value="/comCreateCheck", method=RequestMethod.POST)
+	public ModelAndView createCheckCommunity(@RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr")List<ClubCategory> categories) {
+		//
+		Community community = new Community(communityName, description);
+		community.setCategories(categories);
+		return new ModelAndView("/community/comCreateCheck", "community", community);
+	}
+	
+	@RequestMapping(value="/comCreate", method=RequestMethod.POST)
+	public String createCommunity(HttpServletRequest req, @RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr")List<ClubCategory> categories) {
+		//
+		SocialPerson person = (SocialPerson) req.getSession().getAttribute("loginUser"); 
+		service.registCommunity(communityName, description, person.getEmail(), categories);
+		return "/community/comList";
 	}
 	
 	//-----------------------------------------------------------------------------------------

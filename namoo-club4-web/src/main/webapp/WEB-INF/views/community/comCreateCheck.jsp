@@ -17,8 +17,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="jumbotron">
-						<h1>${communityName}</h1>
-						<p>${description}</p>
+						<h1>${community.name}</h1>
+						<p>${community.description}</p>
 					</div>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<div class="well">
 					<p>나와 같은 관심사를 가진 멤버를 모집하고 열심히 운영하여 커뮤니티를 성장시켜 보세요.</p>
 					<form class="form-horizontal"
-						action="${ctx}/community/comCreate.do?name=${name}" method="post">
+						action="${ctx}/community/comCreate" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">커뮤니티명</label>
@@ -59,12 +59,8 @@
                            		<label class="col-lg-2 control-label">클럽 카테고리</label>
 
                             	<div class="col-lg-10">
-                              		<input type="text" class="form-control" placeholder="카테고리 1" name="ctgr1" value="${category1}" readonly="readonly">
-	                             	<input type="text" class="form-control" placeholder="카테고리 2" name="ctgr2" value="${category2}" readonly="readonly">
-	                                <input type="text" class="form-control" placeholder="카테고리 3" name="ctgr3" value="${category3}" readonly="readonly">
-	                                <input type="text" class="form-control" placeholder="카테고리 4" name="ctgr4" value="${category4}" readonly="readonly">
-	                                <input type="text" class="form-control" placeholder="카테고리 5" name="ctgr5" value="${category5}" readonly="readonly">
-	                                <input type="text" class="form-control" placeholder="카테고리 6" name="ctgr6" value="${category6}" readonly="readonly">
+                            	<c:forEach var="category" items="${community.categories()}"></c:forEach>
+                              		<input type="text" class="form-control" placeholder="카테고리 1" name="ctgr1" value="${category}" readonly="readonly">
 	                            </div>
 	                        </div>
 							<div class="form-group">
