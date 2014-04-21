@@ -3,10 +3,6 @@ package com.namoo.club.web.session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import com.namoo.club.service.facade.UserService;
 
 /**
@@ -15,11 +11,8 @@ import com.namoo.club.service.facade.UserService;
  * @author kosta-18
  *
  */
-@Component
-@Scope(value="request")
 public class SessionManager {
 	//
-	@Autowired
 	private UserService userService;
 	
 	private HttpSession session;

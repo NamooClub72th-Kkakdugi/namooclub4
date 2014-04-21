@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.ClubService;
-import com.sun.jna.platform.win32.Netapi32Util.User;
 
 import dom.entity.Club;
-import dom.entity.ClubMember;
 
 /**
  * 클럽 컨트롤러
