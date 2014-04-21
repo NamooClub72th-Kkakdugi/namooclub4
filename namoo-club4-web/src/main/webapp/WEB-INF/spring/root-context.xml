@@ -8,7 +8,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- Database properties -->
-	<context:property-placeholder location="/jdbc.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
 	
 	<!-- DBCP Connection Pool -->
