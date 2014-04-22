@@ -68,10 +68,10 @@ body {
 
 		<!-- body -->
 		<div class="info-body">
-			<form action="${ctx}/inform/comRemove.do" method="post">
+			<form action="${ctx}/community/comRemove/${community.comNo}" method="post">
 				<h3>삭제 안내</h3>
-				<p>정말로 ${communityName}을 삭제 하시겠습니까??</p>
-				<input type="hidden" name="comNo" value="${comNo}" />
+				<p>정말로 ${community.name}을 삭제 하시겠습니까??</p>
+				<input type="hidden" name="comNo" value="${community.comNo}" />
 				<input type="submit" value="확인" />
 				<button onclick="history.back(); return false;">취소</button>
 			</form>

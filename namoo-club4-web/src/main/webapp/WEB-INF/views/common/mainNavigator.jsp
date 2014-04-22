@@ -11,11 +11,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">${name}님이 로그인 중입니다.</a>
+			<a class="navbar-brand">${loginUser.name}님이 로그인 중입니다.</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${ctx}/user/logout.do">로그아웃</a></li>
+				<li><a href="${ctx}/logout">로그아웃</a></li>
 			</ul>
 		</div>
 	</div>

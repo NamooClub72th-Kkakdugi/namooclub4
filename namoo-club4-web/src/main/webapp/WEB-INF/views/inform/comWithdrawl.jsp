@@ -67,7 +67,7 @@ body {
 
 		<!-- body -->
 		<div class="info-body">
-			<form action="${ctx}/community/comList.do" method="get">
+			<form action="${ctx}/community/comList" method="get">
 				<h3>탈퇴 안내</h3>
 				<p>탈퇴가 완료되었습니다.</p>
 				<input type="submit" value="확인" />

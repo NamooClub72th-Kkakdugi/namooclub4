@@ -14,7 +14,9 @@ public class PresCommunity {
 	private Community community;
 	private String loginEmail;
 	//--------------------------------------------------------------------------
-	
+	public PresCommunity () {
+		//
+	}
 	
 	public PresCommunity(Community community) {
 		//
@@ -52,7 +54,7 @@ public class PresCommunity {
 	public CommunityManager getManager() {
 		return community.getManager();
 	}
-
+	
 	//------------------------------------------------------------------------
 	public String getLoginEmail() {
 		return loginEmail;

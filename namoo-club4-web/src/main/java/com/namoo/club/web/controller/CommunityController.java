@@ -9,18 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.CommunityService;
+import com.namoo.club.web.controller.cmd.CommunityCommand;
 import com.namoo.club.web.controller.pres.PresCommunity;
 import com.namoo.club.web.session.SessionManager;
 
-import dom.entity.ClubCategory;
 import dom.entity.Community;
-import dom.entity.SocialPerson;
 
 @Controller
 @RequestMapping(value="/community")
@@ -32,8 +32,8 @@ public class CommunityController {
 	@RequestMapping(value="/comList", method=RequestMethod.GET)
 	public ModelAndView communityList(HttpServletRequest req) {
 		//
-		SocialPerson person = (SocialPerson) req.getSession().getAttribute("loginUser");
-		String email = person.getEmail();
+		SessionManager manager = new SessionManager(req);
+		String email = manager.getLoginEmail();
 		List<Community> joinCommunities = service.findBelongCommunities(email);
 		List<Community> unjoinCommunities = service.findNotBelongCommunities(email);
 
@@ -54,23 +54,63 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/comCreateCheck", method=RequestMethod.POST)
-	public ModelAndView createCheckCommunity(@RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr")List<ClubCategory> categories) {
+	public ModelAndView createCheckCommunity(CommunityCommand command) {
 		//
-		Community community = new Community(communityName, description);
-		community.setCategories(categories);
+		Community community = new Community(command.getCommunityName(), command.getDescription());
+		community.setCategories(command.getClubCategories());
 		return new ModelAndView("/community/comCreateCheck", "community", community);
 	}
 	
 	@RequestMapping(value="/comCreate", method=RequestMethod.POST)
-	public String createCommunity(HttpServletRequest req, @RequestParam("communityName")String communityName, @RequestParam("description")String description, @RequestParam("ctgr") List<String> categories) {
+	public String createCommunity(HttpServletRequest req, CommunityCommand command) {
 		//
-		//커맨드 객체에 담아서 파람으로 받아온다.
-		//커맨드 객체에서 String categories를 Clubcategory로 변환!
-//		SessionManager manager = new SessionManager(req); 
-//		
-//		service.registCommunity(communityName, description, manager.getLoginEmail(), categories);
-//		return "/community/comList";
-		return null;
+		SessionManager manager = new SessionManager(req);
+		service.registCommunity(command.getCommunityName(), command.getDescription(), manager.getLoginEmail(), command.getClubCategories());
+		
+		return "redirect:/community/comList";
+	}
+	
+	@RequestMapping(value="/comJoin/{communityNo}", method=RequestMethod.GET)
+	public ModelAndView joinCommunity(@PathVariable("communityNo") int communityNo) {
+		//
+		Community community = service.findCommunity(communityNo);
+		return new ModelAndView("/community/comJoinInput", "community", community);
+	}
+	
+	@RequestMapping(value="/communityJoin/{comNo}", method=RequestMethod.GET)
+	public String joinCommunity(HttpServletRequest req, @PathVariable("comNo") int communityNo) {
+		//
+		SessionManager manager = new SessionManager(req);
+		service.joinAsMember(communityNo, manager.getLoginEmail());
+		return "redirect:/community/comList";
+	}
+	
+	@RequestMapping(value="/comRemove/{communityNo}", method=RequestMethod.GET)
+	public ModelAndView removeCom(@PathVariable("communityNo") int communityNo) {
+		//
+		Community community = service.findCommunity(communityNo);
+		return new ModelAndView("/inform/comRemoveCheck", "community", community);
+	}
+	
+	@RequestMapping(value="/comRemove/{communityNo}", method=RequestMethod.POST)
+	public String removeCommunity(@PathVariable("communityNo") int communityNo) {
+		//
+		service.removeCommunity(communityNo, true);
+		return "redirect:/community/comList";
+	}
+	
+	@RequestMapping(value="/comWithdrawl", method=RequestMethod.POST)
+	public ModelAndView withdrawlCommunity(CommunityCommand command) {
+		//
+		return new ModelAndView("/inform/comWithdrawlCheck", "community", command);
+	}
+	
+	@RequestMapping(value="/communityWithdrawl", method=RequestMethod.POST)
+	public String withdrawlCommunity(HttpServletRequest req, @RequestParam("communityNo") int communityNo) {
+		//
+		SessionManager manager = new SessionManager(req);
+		service.withdrawalCommunity(communityNo, manager.getLoginEmail());
+		return "/community/comList";
 	}
 	
 	//-----------------------------------------------------------------------------------------
@@ -80,7 +120,7 @@ public class CommunityController {
 		// 
 		List<PresCommunity> presCommunities = new ArrayList<PresCommunity>();
 		for (Community community : communities) {
-			PresCommunity presCommunity = new PresCommunity(community);
+			PresCommunity presCommunity = new PresCommunity(service.findCommunity(community.getComNo()));
 			presCommunity.setLoginEmail(loginEmail);
 			presCommunities.add(presCommunity);
 		}

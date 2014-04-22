@@ -59,8 +59,9 @@
                            		<label class="col-lg-2 control-label">클럽 카테고리</label>
 
                             	<div class="col-lg-10">
-                            	<c:forEach var="category" items="${community.categories()}"></c:forEach>
-                              		<input type="text" class="form-control" placeholder="카테고리 1" name="ctgr1" value="${category}" readonly="readonly">
+                            	<c:forEach var="category" items="${community.categories}">
+                           			<input type="text" class="form-control" placeholder="카테고리 1" name="ctgr" value="${category.categoryName}" readonly="readonly">
+                          		</c:forEach>
 	                            </div>
 	                        </div>
 							<div class="form-group">

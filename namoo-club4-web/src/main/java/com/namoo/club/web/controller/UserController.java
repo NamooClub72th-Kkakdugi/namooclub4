@@ -58,6 +58,14 @@ public class UserController {
 		return "/user/login";
 	}
 	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public RedirectView logout(HttpServletRequest req) {
+		//
+		SessionManager manager = new SessionManager(req);
+		manager.logout();
+		return new RedirectView("/login", true);
+	}
+	
 	
 
 }

@@ -7,6 +7,13 @@ public class ClubCategory {
 	private String categoryName;
 	
 	//-----------------
+	
+	public ClubCategory(int categoryNo, String categoryName) {
+		//
+		this.categoryNo = categoryNo;
+		this.categoryName = categoryName;
+	}
+	
 	public ClubCategory(int categoryNo, int communityNo, String categoryName) {
 		//
 		this.communityNo = communityNo;

@@ -3,7 +3,6 @@ package com.namoo.club.web.session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -19,6 +18,7 @@ import dom.entity.SocialPerson;
  */
 public class SessionManager {
 	//
+	private static final String LOGIN_USER = "loginUser";
 	private UserService userService;
 	
 	private HttpSession session;
@@ -50,7 +50,7 @@ public class SessionManager {
 	public boolean login(String email, String password) {
 		//
 		if (userService.loginAsTowner(email, password)) {
-			session.setAttribute("loginUser", userService.findTowner(email));
+			session.setAttribute(LOGIN_USER, userService.findTowner(email));
 			return true;
 		} else {
 			return false;
@@ -82,4 +82,5 @@ public class SessionManager {
 	public String getLoginEmail() {
 		return ((SocialPerson)session.getAttribute("loginUser")).getEmail();
 	}
+
 }

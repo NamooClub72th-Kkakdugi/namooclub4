@@ -47,7 +47,7 @@
 							<h2 id="container">가입 커뮤니티</h2>
 						</div>
 
-						<form action="${ctx}/inform/comWithdrawlCheck.do" method="post">
+						<form action="${ctx}/community/comWithdrawl" method="post">
 							<ul class="list-group">
 								<c:forEach var="community" items="${joinCommunities}">
 									<li class="list-group-item"><span class="badge"></span>
@@ -62,7 +62,7 @@
 										<input type="hidden" name="comNo" value="${community.communityNo}" />
 										<c:choose>
 										<c:when test="${community.isManager()}">
-										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/inform/comRemoveCheck.do?comNo=${community.communityNo}'; return false;">삭제하기</button>
+										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comRemove/${community.communityNo}'; return false;">삭제하기</button>
 										<button class="label label-info" onclick="location.href='${ctx}/commission/comSelectMem.xhtml?comNo=${community.communityNo}'; return false;">권한 위임하기</button>
 										</c:when>
 										<c:otherwise>
@@ -84,12 +84,12 @@
 							<c:forEach var="community" items="${unJoinCommunities}">
 									<li class="list-group-item"><span class="badge"></span>
 										<h4>
-										<input type="hidden" value="${community.communityNo}" />
+										<input type="hidden" name="comNo" value="${community.communityNo}" />
 											<a href="${ctx}/club/clubList.do?comNo=${community.communityNo}&name=${name}">${community.name}</a>
 										</h4>
 										<p>${community.description}</p>
 										<span class="badge">개설 날짜 : <fmt:formatDate value="${community.openDate}" pattern="yyyy-MM-dd"/></span>
-										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comJoinInput.xhtml?comNo=${community.communityNo}&name=${name}'">멤버가입</button></li>
+										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comJoin/${community.communityNo}'">멤버가입</button></li>
 								</c:forEach>
 						</ul>
 					</div>
