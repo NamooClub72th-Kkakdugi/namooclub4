@@ -12,7 +12,6 @@ public class CommunityCommand {
 	private String communityName;
 	private String description;
 	private String[] ctgr;
-	private int communityNo;
 
 	//--------------------------------------------------------------------------------------
 	public String getCommunityName() {
@@ -34,12 +33,6 @@ public class CommunityCommand {
 		this.ctgr = ctgr;
 	}
 	
-	public int getCommunityNo() {
-		return communityNo;
-	}
-	public void setCommunityNo(int communityNo) {
-		this.communityNo = communityNo;
-	}
 	public List<ClubCategory> getClubCategories() {
 		//
 		List<ClubCategory> categories = new ArrayList<ClubCategory>();

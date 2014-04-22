@@ -59,7 +59,7 @@
 										</h4>
 										<p>${community.description}</p>
 										<span class="badge">개설 날짜 : <fmt:formatDate value="${community.openDate}" pattern="yyyy-MM-dd"/></span>
-										<input type="hidden" name="comNo" value="${community.communityNo}" />
+										<input type="hidden" name="communityNo" value="${community.communityNo}" />
 										<c:choose>
 										<c:when test="${community.isManager()}">
 										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comRemove/${community.communityNo}'; return false;">삭제하기</button>

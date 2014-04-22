@@ -100,9 +100,10 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="/comWithdrawl", method=RequestMethod.POST)
-	public ModelAndView withdrawlCommunity(CommunityCommand command) {
+	public ModelAndView withdrawlCommunity(@RequestParam("communityNo") int communityNo) {
 		//
-		return new ModelAndView("/inform/comWithdrawlCheck", "community", command);
+		Community community = service.findCommunity(communityNo);
+		return new ModelAndView("/inform/comWithdrawlCheck", "community", community);
 	}
 	
 	@RequestMapping(value="/communityWithdrawl", method=RequestMethod.POST)
@@ -110,7 +111,7 @@ public class CommunityController {
 		//
 		SessionManager manager = new SessionManager(req);
 		service.withdrawalCommunity(communityNo, manager.getLoginEmail());
-		return "/community/comList";
+		return "/inform/comWithdrawl";
 	}
 	
 	//-----------------------------------------------------------------------------------------
