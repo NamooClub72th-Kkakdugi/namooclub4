@@ -13,6 +13,7 @@ public class PresClub {
 	//
 	private Club club;
 	private String loginEmail;
+	private String categoryName;
 
 	//--------------------------------------------------------------------------
 	
@@ -62,6 +63,12 @@ public class PresClub {
 	public ClubKingManager getKingManager() {
 		return club.getKingManager();
 	}
+
+	
+	public String getCategoryName() {
+		return club.getCategoryName();
+	}
+
 
 	//------------------------------------------------------------------------
 	public String getLoginEmail() {

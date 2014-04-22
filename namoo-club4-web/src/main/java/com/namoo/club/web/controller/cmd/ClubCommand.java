@@ -2,21 +2,22 @@ package com.namoo.club.web.controller.cmd;
 
 public class ClubCommand {
 	//
-	private String categoryName;
+	private int categoryNo;
 	private String clubName;
 	private String clubDescription;
+	private int communityNo;
 
 
 	//--------------------------------------------------------------------------
 	
-	public String getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
 	public String getClubName() {
 		return clubName;
+	}
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 	public void setClubName(String clubName) {
 		this.clubName = clubName;
@@ -27,4 +28,11 @@ public class ClubCommand {
 	public void setClubDescription(String clubDescription) {
 		this.clubDescription = clubDescription;
 	}
+	public int getCommunityNo() {
+		return communityNo;
+	}
+	public void setCommunityNo(int communityNo) {
+		this.communityNo = communityNo;
+	}
+	
 }

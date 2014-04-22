@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.ClubService;
 import com.namoo.club.service.facade.CommunityService;
+import com.namoo.club.web.controller.cmd.ClubCommand;
 import com.namoo.club.web.controller.pres.PresClub;
 import com.namoo.club.web.session.SessionManager;
 
@@ -40,6 +41,7 @@ public class ClubController {
 	@RequestMapping(value="/clubList/{comNo}", method = RequestMethod.GET)
 	public ModelAndView clubList(@PathVariable("comNo") int comNo, HttpServletRequest req) {
 		//
+		Community community = comService.findCommunity(comNo);
 		SessionManager manager = new SessionManager(req);
 		String email = manager.getLoginEmail();
 		List<Club> belongClubs = clubService.findBelongClubs(email, comNo);
@@ -51,39 +53,31 @@ public class ClubController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("joinClubs", presJoinClubs);
 		map.put("unJoinClubs", presUnJoinClubs);
+		map.put("community", community);
 		
 		return new ModelAndView("/club/clubList", map);
 	}
 	
 	@RequestMapping(value="/clubCreateInput", method = RequestMethod.GET)
-	public ModelAndView clubCreateInput(@RequestParam("comNo") int communityNo) {
-		//
-		Community community = comService.findCommunity(communityNo);
+	public ModelAndView clubCreateInput(@RequestParam("comNo") int comNo) {
+		
+		Community community = comService.findCommunity(comNo);
 		return new ModelAndView("/club/clubCreateInput", "community", community);
 	}
 	
 	@RequestMapping(value="/clubCreateCheck", method = RequestMethod.POST)
-	public String clubCreateCheck(@PathVariable("categoryNo") int categoryNo,
-								@PathVariable("communityNo") int communityNo,
-								@RequestParam("clubName") String clubName,
-								@RequestParam("clubDescription") String description,
-								HttpServletRequest req) {
+	public ModelAndView clubCreateCheck(ClubCommand command, HttpServletRequest req) {
 		//
-//		SessionManager manager = new SessionManager(req);
-//		String email = manager.getLoginEmail();
-//		Club club = clubService.registClub(categoryNo, communityNo, clubName, description, email);
-		
-		return "/club/clubCreateCheck";
+		Club club = new Club(command.getCategoryNo(), command.getCommunityNo(), command.getClubName(), command.getClubDescription());
+		PresClub presClub = new PresClub(club);
+		return new ModelAndView("/club/clubCreateCheck", "club", presClub);
 	}
 	
 	@RequestMapping(value="/clubList", method = RequestMethod.POST)
-	public String clubCreate(@PathVariable("categoryNo") int categoryNo,
-							@PathVariable("communityNo") int communityNo,
-							@RequestParam("clubName") String clubName,
-							@RequestParam("clubDescription") String description,
-							@PathVariable("email") String email) {
-		
-		clubService.registClub(categoryNo, communityNo, clubName, description, email);
+	public String clubCreate(ClubCommand command, HttpServletRequest req) {
+		//
+		SessionManager manager = new SessionManager(req);
+		clubService.registClub(command.getCategoryNo(), command.getCommunityNo(), command.getClubName(), command.getClubDescription(), manager.getLoginEmail());
 		
 		return "/club/clubList";
 	}
@@ -120,7 +114,7 @@ public class ClubController {
 		//
 		List<PresClub> presClubs = new ArrayList<PresClub>();
 		for (Club club : clubs) {
-			PresClub presClub = new PresClub(club);
+			PresClub presClub = new PresClub(clubService.findClub(club.getClubNo()));
 			presClub.setLoginEmail(loginEmail);
 			presClubs.add(presClub);
 		}
