@@ -72,17 +72,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-2 control-label">클럽 멤버 가입을 위한 질문내용</label>
-
-								<div class="col-lg-10">
-									<input type="text" name="clubQuOne" value="${clubQuOne}"
-										readonly="readonly" class="form-control"> <input type="text"
-										name="clubQuTwo" value="${clubQuTwo}" readonly="readonly"
-										class="form-control"> <input type="text" name="clubQuThree"
-										value="${clubQuThree}" readonly="readonly" class="form-control">
-								</div>
-							</div>
-							<div class="form-group">
 								<div class="col-lg-10 col-lg-offset-2">
 									<button class="btn btn-primary" type="submit">확인</button>
 									<button class="btn btn-default" onclick="history.back(); return false;">취소</button>

@@ -55,7 +55,7 @@
 										<span class="label label-warning">관리자</span>
 										</c:if>
 										<h4>
-											<a href="${ctx}/club/clubList">${community.name}&nbsp;(회원수 : ${community.members.size()} 클럽수 : ${community.clubs.size()})</a>
+											<a href="${ctx}/club/clubList/${community.communityNo}">${community.name}&nbsp;(회원수 : ${community.members.size()} 클럽수 : ${community.clubs.size()})</a>
 										</h4>
 										<p>${community.description}</p>
 										<span class="badge">개설 날짜 : <fmt:formatDate value="${community.openDate}" pattern="yyyy-MM-dd"/></span>

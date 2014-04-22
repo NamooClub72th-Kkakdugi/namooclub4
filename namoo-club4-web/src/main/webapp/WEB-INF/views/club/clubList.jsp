@@ -16,11 +16,11 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="jumbotron">
-						<form action="${ctx}/club/clubCreateInput.do" method="get">
+						<form action="${ctx}/club/clubCreateInput" method="get">
 							<h1>${community.name}</h1>
 							<p>${community.description}</p>
 							<p>
-							<input type="hidden" name="comNo" value="${community.comNo}" /> 
+							<input type="hidden" name="comNo" value="${community.comNo}" />
 							<input type="submit" class="btn btn-warning btn-lg" value="클럽 개설하기">
 							</p>
 						</form>
@@ -73,7 +73,7 @@
 													</c:when>
 												</c:choose>
 												<span class="label label-primary"></span>&nbsp;
-												 <a href="${ctx}/club/clubMemberList.do" return false;>${club.name}&nbsp;(회원수 : ${club.members.size()})</a>
+												 <a href="'${ctx}/club/clubMemberList.do' return false;">${club.name}&nbsp;(회원수 : ${club.members.size()})</a>
 							
 											</h4>
 											<p>${club.description}</p> 
