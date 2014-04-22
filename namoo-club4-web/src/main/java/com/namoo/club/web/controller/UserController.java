@@ -66,6 +66,19 @@ public class UserController {
 		return new RedirectView("/login", true);
 	}
 	
+	@RequestMapping(value="/withdrawl", method=RequestMethod.GET)
+	public String withdrawl() {
+		//
+		return "/user/withdrawlCheck";
+	}
+	
+	@RequestMapping(value="/withdrawl", method=RequestMethod.POST)
+	public String withdrawlTowner(HttpServletRequest req) {
+		//
+		SessionManager manager = new SessionManager(req);
+		service.removeTowner(manager.getLoginEmail());
+		return "/user/withdrawl";
+	}
 	
 
 }

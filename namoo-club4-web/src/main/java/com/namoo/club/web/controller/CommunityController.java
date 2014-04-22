@@ -19,13 +19,17 @@ import com.namoo.club.service.facade.CommunityService;
 import com.namoo.club.service.facade.UserService;
 import com.namoo.club.web.controller.cmd.CommunityCommand;
 import com.namoo.club.web.controller.pres.PresCommunity;
+import com.namoo.club.web.session.LoginRequired;
 import com.namoo.club.web.session.SessionManager;
 
 import dom.entity.Community;
+import dom.entity.CommunityManager;
+import dom.entity.CommunityMember;
 import dom.entity.SocialPerson;
 
 @Controller
 @RequestMapping(value="/community")
+@LoginRequired
 public class CommunityController {
 	//
 	@Autowired
@@ -121,11 +125,20 @@ public class CommunityController {
 	@RequestMapping(value="/comSelectMem/{communityNo}", method=RequestMethod.GET)
 	public ModelAndView comSelectMem(@PathVariable("communityNo") int communityNo) {
 		//
+		List<CommunityMember> members = service.findAllCommunityMember(communityNo);
+		CommunityManager manager = service.findCommunityManager(communityNo);
+		members = filter(members, manager);
+		
 		Community community = service.findCommunity(communityNo);
-		return new ModelAndView("/commission/comSelectMem", "community", community);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("members", members);
+		map.put("community", community);
+		return new ModelAndView("/commission/comSelectMem", map);
 	}
 	
-	public String commissionCommunity(HttpServletRequest req, @PathVariable("communityNo") int communityNo, @PathVariable("email") String email) {
+	@RequestMapping(value="/comCommission/{communityNo}", method=RequestMethod.POST)
+	public String commissionCommunity(HttpServletRequest req, @PathVariable("communityNo") int communityNo, @RequestParam("email") String email) {
 		//
 		SessionManager manager = new SessionManager(req);
 		SocialPerson originPerson = userService.findTowner(manager.getLoginEmail());
@@ -146,5 +159,23 @@ public class CommunityController {
 			presCommunities.add(presCommunity);
 		}
 		return presCommunities;
+	}
+	
+	private List<CommunityMember> filter(List<CommunityMember> members, CommunityManager manager) {
+		// 
+		CommunityMember found = null;
+		for (CommunityMember member : members) {
+			if (member.getEmail().equals(manager.getEmail())) {
+				found = member;
+				System.out.println(found.getEmail());
+				break;
+			}
+		}
+		
+		if (found != null) {
+			members.remove(found);
+		}
+		
+		return members;
 	}
 }

@@ -71,7 +71,7 @@ public class SessionManager {
 	 */
 	public boolean isLogin() {
 		//
-		return session.getAttribute("loginId") != null ? true : false;
+		return session.getAttribute(LOGIN_USER) != null ? true : false;
 	}
 	
 	
@@ -80,7 +80,7 @@ public class SessionManager {
 	 * @return
 	 */
 	public String getLoginEmail() {
-		return ((SocialPerson)session.getAttribute("loginUser")).getEmail();
+		return ((SocialPerson)session.getAttribute(LOGIN_USER)).getEmail();
 	}
 
 }

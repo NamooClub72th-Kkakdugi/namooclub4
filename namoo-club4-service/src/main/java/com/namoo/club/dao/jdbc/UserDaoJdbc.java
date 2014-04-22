@@ -148,7 +148,7 @@ public class UserDaoJdbc implements UserDao {
 		
 		try {
 			conn = dataSource.getConnection();
-			String sql = "DELETE FROM user WHERE email =?";
+			String sql = "DELETE FROM user WHERE email=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, email);

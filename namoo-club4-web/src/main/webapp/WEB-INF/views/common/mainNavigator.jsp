@@ -15,6 +15,7 @@
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="${ctx}/withdrawl">회원탈퇴</a></li>
 				<li><a href="${ctx}/logout">로그아웃</a></li>
 			</ul>
 		</div>

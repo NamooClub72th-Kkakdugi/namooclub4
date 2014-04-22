@@ -28,28 +28,31 @@
 		</div>
 	</header>
 	<!-- Container ======================================================================================= -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="page-header">
-					<h2 id="container">${community.name}의 멤버목록</h2>
-				</div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h2 id="container">${community.name}의 멤버목록</h2>
+			</div>
 				<table class="table table-hover" id="memberTable">
 					<thead>
-						<tr>
+							<tr>
 							<th>이름</th>
 							<th>이메일</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-							<c:forEach var="member" items="${community.members}">
-								<tr>
+						<c:forEach var="member" items="${members}">
+							<tr>
 								<td>${member.name}</td>
 								<td>${member.email}</td>
-								<td> <button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comCommission?comNo=${comNo}&email=${member.email}'">위임</button></td>
-								</tr>
-							</c:forEach>
+								<td><form action="${ctx}/community/comCommission/${community.comNo}" method="post">
+									<input type="hidden" name="email" value="${member.email}" />
+									<button type="submit" class="btn btn-default btn-sm">위임</button>
+								</form></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
