@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.namoo.club.service.facade.CommunityService;
+import com.namoo.club.service.facade.UserService;
 import com.namoo.club.web.controller.cmd.CommunityCommand;
 import com.namoo.club.web.controller.pres.PresCommunity;
 import com.namoo.club.web.session.SessionManager;
 
 import dom.entity.Community;
+import dom.entity.SocialPerson;
 
 @Controller
 @RequestMapping(value="/community")
@@ -28,6 +30,8 @@ public class CommunityController {
 	//
 	@Autowired
 	private CommunityService service;
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value="/comList", method=RequestMethod.GET)
 	public ModelAndView communityList(HttpServletRequest req) {
@@ -112,6 +116,22 @@ public class CommunityController {
 		SessionManager manager = new SessionManager(req);
 		service.withdrawalCommunity(communityNo, manager.getLoginEmail());
 		return "/inform/comWithdrawl";
+	}
+	
+	@RequestMapping(value="/comSelectMem/{communityNo}", method=RequestMethod.GET)
+	public ModelAndView comSelectMem(@PathVariable("communityNo") int communityNo) {
+		//
+		Community community = service.findCommunity(communityNo);
+		return new ModelAndView("/commission/comSelectMem", "community", community);
+	}
+	
+	public String commissionCommunity(HttpServletRequest req, @PathVariable("communityNo") int communityNo, @PathVariable("email") String email) {
+		//
+		SessionManager manager = new SessionManager(req);
+		SocialPerson originPerson = userService.findTowner(manager.getLoginEmail());
+		SocialPerson nwPerson = userService.findTowner(email);
+		service.commissionManagerCommunity(communityNo, originPerson, nwPerson);
+		return "redirect:/community/comList";
 	}
 	
 	//-----------------------------------------------------------------------------------------
