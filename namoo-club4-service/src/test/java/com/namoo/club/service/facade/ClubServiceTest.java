@@ -107,7 +107,7 @@ public class ClubServiceTest extends DbCommonTest {
 	@DatabaseSetup(DATASET_XML)
 	public void testRemoveClub() {
 		//
-		clubService.removeClub(1, 1, true);
+		clubService.removeClub(1, true);
 		
 		// 검증
 		List<Club> clubs = clubService.findAllClubs(1);

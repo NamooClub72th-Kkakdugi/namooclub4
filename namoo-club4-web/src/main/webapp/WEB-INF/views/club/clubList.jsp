@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html">
 <html>
 <head>
@@ -56,9 +55,6 @@
 						<div class="page-header">
 							<h2 id="container">가입 클럽</h2>
 						</div>
-
-						<form action="${ctx}/inform/comWithdrawlCheck.do"
-							method="post">
 							<ul class="list-group">
 								<c:forEach var="club" items="${joinClubs}">
 									<ul class="list-group">
@@ -79,13 +75,13 @@
 											<p>${club.description}</p> 
 											<c:choose>
 												<c:when test="${club.isManager()}">
-													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/inform/clubRemoveCheck.do?clubNo=${club.clubNo}&comNo=${community.comNo}'">클럽 삭제하기</button>
-													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'; return false;">권한 위임하기</button>
+													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubRemove/${club.clubNo}'">클럽 삭제하기</button>
+													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">권한 위임하기</button>
 												</c:when>
 												<c:when test="${club.isKingManager()}">
-													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/inform/clubRemoveCheck.do?clubNo=${club.clubNo}&comNo=${community.comNo}'">클럽 삭제하기</button>
+													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubRemove/${club.clubNo}'">클럽 삭제하기</button>
 													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/commission/clubSelectMng.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">관리자 지정하기</button>
-													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'; return false;">권한 위임하기</button>
+													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">권한 위임하기</button>
 												</c:when>
 												<c:otherwise>
 													<button type="button" class="btn btn-default btn-sm" disabled="disabled"onclick="location.href='${ctx}/inform/clubRemoveCheck.do?clubNo=${club.clubNo}&comNo=${community.comNo}'">클럽 삭제하기</button>
@@ -95,7 +91,6 @@
 									</ul>
 								</c:forEach>
 							</ul>
-						</form>
 					</div>
 					<!-- ★★★ 미가입 커뮤니티 -->
 					<div class="tab-pane fade" id="unjoinded">

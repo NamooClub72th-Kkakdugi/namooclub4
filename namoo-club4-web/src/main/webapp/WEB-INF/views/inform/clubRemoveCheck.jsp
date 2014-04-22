@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -68,9 +69,10 @@ body {
 
 		<!-- body -->
 		<div class="info-body">
-			<form action="${ctx}/inform/clubRemove.do?clubNo=${clubNo}&comNo=${comNo}" method="post">
+			<form action="${ctx}/club/clubRemove/${club.clubNo}" method="post">
 				<h3>삭제 안내</h3>
-				<p>정말로 ${clubName}을 삭제 하시겠습니까??</p>
+				<p>정말로 ${club.name}을 삭제 하시겠습니까??</p>
+				<input type="hidden" name="communityNo" value="${club.comNo}" />
 				<input type="submit" value="확인" />
 				<button onclick="history.back(); return false;">취소</button>
 			</form>

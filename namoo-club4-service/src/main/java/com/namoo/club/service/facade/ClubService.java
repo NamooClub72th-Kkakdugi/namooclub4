@@ -80,7 +80,7 @@ public interface ClubService {
 	/**
 	 * @param clubName
 	 */
-	public void removeClub(int clubNo, int comNo,boolean forcingRemove);
+	public void removeClub(int clubNo, boolean forcingRemove);
 	
 	/**
 	 * 해당 커뮤니티에

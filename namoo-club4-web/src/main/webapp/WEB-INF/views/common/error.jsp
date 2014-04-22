@@ -68,7 +68,7 @@
         <h3>에러메시지</h3>
 		<p><%= exception.getMessage() %></p>
         <div class="row error-btn">
-            <button class="btn btn-large btn-default" onclick="location.href='${ctx}/community/comList.do'">홈화면으로 이동</button>
+            <button class="btn btn-large btn-default" onclick="location.href='${ctx}/community/comList'">홈화면으로 이동</button>
         </div>
     </div>
 

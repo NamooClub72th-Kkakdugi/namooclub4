@@ -125,7 +125,19 @@ public class ClubController {
 		
 	}
 	
+	@RequestMapping(value="/clubRemove/{clubNo}", method=RequestMethod.GET)
+	public ModelAndView removeCom(@PathVariable("clubNo") int clubNo) {
+		//
+		Club club = clubService.findClub(clubNo);
+		return new ModelAndView("/inform/clubRemoveCheck", "club", club);
+	}
 	
+	@RequestMapping(value="/clubRemove/{clubNo}", method=RequestMethod.POST)
+	public RedirectView removeCommunity(@PathVariable("clubNo") int clubNo, @RequestParam("communityNo") int communityNo) {
+		//
+		clubService.removeClub(clubNo, true);
+		return new RedirectView("/club/clubList/"+communityNo, true);
+	}
 	
 	//-----------------------------------------------------------------------------------------
 	//private method
