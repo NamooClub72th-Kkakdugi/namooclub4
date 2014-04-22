@@ -63,7 +63,7 @@
 										<c:choose>
 										<c:when test="${community.isManager()}">
 										<button class="btn btn-default btn-sm" onclick="location.href='${ctx}/community/comRemove/${community.communityNo}'; return false;">삭제하기</button>
-										<button class="label label-info" onclick="location.href='${ctx}/commission/comSelectMem.xhtml?comNo=${community.communityNo}'; return false;">권한 위임하기</button>
+										<button class="label label-info" onclick="location.href='${ctx}/community/comSelectMem/${community.communityNo}'; return false;">권한 위임하기</button>
 										</c:when>
 										<c:otherwise>
 										<input type="submit" value="멤버탈퇴" class="btn btn-default btn-sm" />
