@@ -44,7 +44,7 @@
 				<div class="well">
 					<p>나와 같은 관심사를 가진 멤버를 모집하고 열심히 운영하여 클럽을 성장시켜 보세요.</p>
 					<form class="form-horizontal" action="${ctx}/club/clubCreateCheck" method="post">
-					<input type="hidden" name="comNo" value="${community.comNo}" />
+					<input type="hidden" name="communityNo" value="${community.comNo}" />
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">클럽 카테고리</label>
@@ -53,7 +53,6 @@
 									<select class="form-control" id="select" name="categoryNo">
 									<c:forEach var="category" items="${community.categories}">
 										<option value="${category.categoryNo}">${category.categoryName}</option>
-										<input type="hidden" name="categoryName" value="${category.categoryName}" />
 									</c:forEach>
 									</select>
 								</div>

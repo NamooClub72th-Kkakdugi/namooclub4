@@ -64,11 +64,17 @@ public class PresClub {
 		return club.getKingManager();
 	}
 
+	public int getCategoryNo() {
+		return club.getCategoryNo();
+	}
 	
 	public String getCategoryName() {
-		return club.getCategoryName();
+		return categoryName;
 	}
 
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 	//------------------------------------------------------------------------
 	public String getLoginEmail() {

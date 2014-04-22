@@ -4,14 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Club {
-
+	//
+	private int categoryNo;
 	private int comNo;
 	private int clubNo;
-	private int categoryNo;
 	private String name;
 	private String description;
-	private String categoryName;
 	private Date openDate;
+	
 	private List<ClubManager> manager;
 	private List<ClubMember> member;
 	private ClubKingManager kingManager;
@@ -24,19 +24,10 @@ public class Club {
 		this.name = name;
 		this.description = description;
 	}
-
+	
 	public Club(int categoryNo, int comNo, String name, String description, SocialPerson user) {
 		//
 		this.categoryNo = categoryNo;
-		this.comNo = comNo;
-		this.name = name;
-		this.description = description;
-	}
-	
-	public Club(int categoryNo, String categoryName, int comNo, String name, String description, SocialPerson user) {
-		//
-		this.categoryNo = categoryNo;
-		this.categoryName = categoryName;
 		this.comNo = comNo;
 		this.name = name;
 		this.description = description;
@@ -112,14 +103,6 @@ public class Club {
 
 	public void setMember(List<ClubMember> member) {
 		this.member = member;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
 	}
 	
 	//--------------------------------------------------------------------------

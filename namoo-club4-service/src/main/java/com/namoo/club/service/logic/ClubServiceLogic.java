@@ -17,7 +17,6 @@ import dom.entity.Club;
 import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
-import dom.entity.Community;
 import dom.entity.SocialPerson;
 
 @Service
@@ -37,25 +36,22 @@ public class ClubServiceLogic implements ClubService {
 	@Override
 	public Club registClub(int categoryNo, int communityNo, String clubName, String description, String email) {
 		//
+		SocialPerson person = userDao.readUser(email);
 		if (isExistClubByName(communityNo, clubName)) {
 			throw NamooClubExceptionFactory.createRuntime("이미 존재하는 클럽입니다.");
 		}
-
-		Club club = new Club(categoryNo, communityNo, clubName, description, new SocialPerson(email, "asdf"));
+		Club club = new Club(categoryNo, communityNo, clubName, description, new SocialPerson(email, person.getName()));
 		int clubNo = clubDao.createClub(communityNo, club);
 
-		SocialPerson person = userDao.readUser(email);
-		
 		memberDao.addKingManager(new ClubKingManager(clubNo, person));
 		return club;
 	}
 
 	private boolean isExistClubByName(int communityNo, String clubName) {
 		//
-		Community community = comDao.readCommunity(communityNo);
-		List<Club> clubs = community.getClubs();
+		List<Club> clubs = clubDao.readAllClubs(communityNo);
 
-		if (community != null && !clubs.isEmpty()) {
+		if (!clubs.isEmpty()) {
 			for (Club club : clubs) {
 				if (club.getName().equals(clubName)) {
 					return true;

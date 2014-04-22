@@ -44,6 +44,7 @@ public class CommunityServiceTest extends DbCommonTest{
 		assertEquals(4, communityService.findAllCommunities().size());
 		assertThat(community.getManager().getEmail(), is("ekdgml"));
 		assertThat(community.getMembers().size(), is(1));
+		assertThat(community.getCategories().size(), is(2));
 	}
 
 	@Test

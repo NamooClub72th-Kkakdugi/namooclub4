@@ -79,6 +79,7 @@ public class CommunityServiceLogic implements CommunityService {
 		community.setCategories(dao.readAllCategories(communityNo));
 		community.setManager(memberDao.readCommunityManager(communityNo));
 		community.setMembers(memberDao.readAllCommunityMember(communityNo));
+		community.setClubs(clubDao.readAllClubs(communityNo));
 		return community;
 	}
 
@@ -108,7 +109,7 @@ public class CommunityServiceLogic implements CommunityService {
 		if (community == null) {
 			throw NamooClubExceptionFactory.createRuntime("커뮤니티가 존재하지 않습니다.");
 		}
-		memberDao.addCommunityMember(communityNo, new CommunityMember(communityNo,person));
+		memberDao.addCommunityMember(communityNo, new CommunityMember(communityNo, person));
 	}
 
 	@Override
@@ -134,7 +135,6 @@ public class CommunityServiceLogic implements CommunityService {
 
 		return null;
 	}
-	
 
 	@Override
 	public CommunityManager findCommunityManager(int communityNo) {
@@ -172,7 +172,7 @@ public class CommunityServiceLogic implements CommunityService {
 		//
 		List<Club> clubs = clubDao.readAllClubs(communityNo);
 		if (forcingRemove) {
-			//TODO deleteAllClubs(int comNo)
+			// TODO deleteAllClubs(int comNo)
 			for (Club club : clubs) {
 				memberDao.deleteClubKingManger(club.getClubNo());
 				memberDao.deleteAllClubManager(club.getClubNo());
@@ -184,7 +184,7 @@ public class CommunityServiceLogic implements CommunityService {
 			memberDao.deleteCommunityManager(communityNo);
 			dao.deleteCommunity(communityNo);
 		} else {
-		throw NamooClubExceptionFactory.createRuntime("하위 클럽부터 삭제하세요.");
+			throw NamooClubExceptionFactory.createRuntime("하위 클럽부터 삭제하세요.");
 		}
 	}
 
@@ -203,7 +203,7 @@ public class CommunityServiceLogic implements CommunityService {
 		}
 		return belongs;
 	}
-	
+
 	@Override
 	public List<Community> findNotBelongCommunities(String email) {
 		//
@@ -216,7 +216,7 @@ public class CommunityServiceLogic implements CommunityService {
 		}
 		List<Community> unjoinCommunities = new ArrayList<Community>(communities);
 		List<Community> remove = new ArrayList<Community>();
-				
+
 		for (Community joinCommunity : belongs) {
 			for (Community community : communities) {
 				if (community.getComNo() == (joinCommunity.getComNo())) {
@@ -265,7 +265,6 @@ public class CommunityServiceLogic implements CommunityService {
 		memberDao.deleteCommuninyMember(communityNo, nwPerson.getEmail());
 		memberDao.addCommunityManager(communityNo, new CommunityManager(communityNo, nwPerson));
 	}
-
 
 	@Override
 	public List<ClubCategory> findAllCategories(int communityNo) {

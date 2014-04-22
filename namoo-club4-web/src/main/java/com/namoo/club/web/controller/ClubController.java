@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.namoo.club.service.facade.ClubService;
 import com.namoo.club.service.facade.CommunityService;
@@ -22,6 +23,7 @@ import com.namoo.club.web.controller.pres.PresClub;
 import com.namoo.club.web.session.SessionManager;
 
 import dom.entity.Club;
+import dom.entity.ClubCategory;
 import dom.entity.ClubMember;
 import dom.entity.Community;
 
@@ -68,18 +70,36 @@ public class ClubController {
 	@RequestMapping(value="/clubCreateCheck", method = RequestMethod.POST)
 	public ModelAndView clubCreateCheck(ClubCommand command, HttpServletRequest req) {
 		//
+		Map<String, Object> map = new HashMap<String, Object>();
+		Community community = comService.findCommunity(command.getCommunityNo());
 		Club club = new Club(command.getCategoryNo(), command.getCommunityNo(), command.getClubName(), command.getClubDescription());
 		PresClub presClub = new PresClub(club);
-		return new ModelAndView("/club/clubCreateCheck", "club", presClub);
+		presClub.setCategoryName(getCategoryNameBy(command.getCommunityNo(), command.getCategoryNo()));
+		
+		map.put("club", presClub);
+		map.put("community", community);
+		return new ModelAndView("/club/clubCreateCheck", map);
 	}
 	
-	@RequestMapping(value="/clubList", method = RequestMethod.POST)
-	public String clubCreate(ClubCommand command, HttpServletRequest req) {
+	private String getCategoryNameBy(int communityNo, int categoryNo) {
+		// 
+		List<ClubCategory> categories = comService.findAllCategories(communityNo);
+		for (ClubCategory category : categories) {
+			if (category.getCategoryNo() == categoryNo) {
+				return category.getCategoryName();
+			}
+		}
+		return null;
+	}
+
+	@RequestMapping(value="/clubCreate", method = RequestMethod.POST)
+	public RedirectView clubCreate(ClubCommand command, HttpServletRequest req) {
 		//
 		SessionManager manager = new SessionManager(req);
 		clubService.registClub(command.getCategoryNo(), command.getCommunityNo(), command.getClubName(), command.getClubDescription(), manager.getLoginEmail());
+		int comNo = command.getCommunityNo();
 		
-		return "/club/clubList";
+		return new RedirectView("/club/clubList/"+comNo, true);
 	}
 	
 	@RequestMapping(value="/clubJoinInput", method=RequestMethod.GET)

@@ -80,7 +80,10 @@ public class SessionManager {
 	 * @return
 	 */
 	public String getLoginEmail() {
-		return ((SocialPerson)session.getAttribute(LOGIN_USER)).getEmail();
+		if (isLogin()) {
+			return ((SocialPerson)session.getAttribute(LOGIN_USER)).getEmail();
+		} 
+		return null;
 	}
 
 }

@@ -118,7 +118,7 @@ public class ClubDaoJdbc implements ClubDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, club.getComNo());
+			pstmt.setInt(1, comNo);
 			pstmt.setInt(2, club.getCategoryNo());
 			pstmt.setString(3, club.getName());
 			pstmt.setString(4, club.getDescription());
