@@ -111,7 +111,7 @@ public class MemberDaoTest extends DbCommonTest{
 		ClubManager clubManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"), false);
 		dao.addClubManager(clubManager);
 		//검증
-		assertEquals("이주성", dao.readClubManager(2, "wntjd", "b").getName());
+		assertEquals("이주성", dao.readClubManager(2, "wntjd").getName());
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class MemberDaoTest extends DbCommonTest{
 		ClubManager clubKingManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"), true);
 		dao.addClubManager(clubKingManager);
 		//검증
-		assertEquals("이주성", dao.readClubManager(2, "wntjd", "a").getName());
+		assertEquals("이주성", dao.readClubKingManager(2).getName());
 	}
 
 	@Test
@@ -164,7 +164,7 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testDeleteClubKingManger() {
 		//
-		dao.deleteClubKingManger(1);
+		dao.deleteClubKingManager(1);
 		//검증
 		assertEquals(2, dao.readAllClubMembers(1).size());
 	}
@@ -195,7 +195,7 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testReadClubManager() {
 		//
-		ClubManager clubManager = dao.readClubManager(1, "hong", "b");
+		ClubManager clubManager = dao.readClubManager(1, "hong");
 		assertEquals("홍길동", clubManager.getName());
 	}
 
@@ -203,7 +203,7 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testReadClubKingManager() {
 		//
-		ClubManager clubKingManager = dao.readClubManager(1, "ekdgml", "a");
+		ClubManager clubKingManager = dao.readClubKingManager(1);
 		assertEquals("박상희", clubKingManager.getName());
 	}
 

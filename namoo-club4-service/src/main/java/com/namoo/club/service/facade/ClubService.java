@@ -58,7 +58,7 @@ public interface ClubService {
 	
 	public ClubManager findClubManager(int clubNo, String email);
 	
-	public ClubManager findClubKingManager(int clubNo, String email);
+	public ClubManager findClubKingManager(int clubNo);
 	
 	/**
 	 * 클럽 회원목록 조회
@@ -118,8 +118,9 @@ public interface ClubService {
 	
 	public void commissionManagerClub(int clubNo, SocialPerson originPerson, SocialPerson nwPerson);
 	
-	public void commissionGoKingManagerClub(int clubNo, SocialPerson originPerson, SocialPerson nwPerson);
-
+	public void commissionKingManagerClub(int clubNo, SocialPerson originPerson, SocialPerson nwPerson);
+	
+	public void assignManagerClub(int clubNo, SocialPerson person);
 
 
 }

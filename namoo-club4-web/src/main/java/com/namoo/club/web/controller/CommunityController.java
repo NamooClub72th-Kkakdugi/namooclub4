@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.namoo.club.service.facade.CommunityService;
 import com.namoo.club.service.facade.UserService;
@@ -147,6 +148,13 @@ public class CommunityController {
 		return "redirect:/community/comList";
 	}
 	
+	@RequestMapping(value="/comManagement", method=RequestMethod.GET)
+	public RedirectView comManagement() {
+		//
+		
+		return new RedirectView("/community/comManagement", true);
+	}
+	
 	//-----------------------------------------------------------------------------------------
 	//private method
 	
@@ -167,7 +175,6 @@ public class CommunityController {
 		for (CommunityMember member : members) {
 			if (member.getEmail().equals(manager.getEmail())) {
 				found = member;
-				System.out.println(found.getEmail());
 				break;
 			}
 		}

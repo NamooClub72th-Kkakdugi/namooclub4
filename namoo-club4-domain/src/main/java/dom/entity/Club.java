@@ -12,8 +12,8 @@ public class Club {
 	private String description;
 	private Date openDate;
 
-	private List<ClubManager> manager;
-	private List<ClubMember> member;
+	private List<ClubManager> managers;
+	private List<ClubMember> members;
 
 	// ---------------------------------------------------------------------------------------------
 	public Club(int categoryNo, int comNo, String name, String description) {
@@ -81,27 +81,27 @@ public class Club {
 		this.openDate = openDate;
 	}
 
-	public List<ClubManager> getManager() {
-		return manager;
+	public List<ClubManager> getManagers() {
+		return managers;
 	}
 
-	public void setManager(List<ClubManager> manager) {
-		this.manager = manager;
+	public void setManagers(List<ClubManager> manager) {
+		this.managers = manager;
 	}
 
-	public List<ClubMember> getMember() {
-		return member;
+	public List<ClubMember> getMembers() {
+		return members;
 	}
 
-	public void setMember(List<ClubMember> member) {
-		this.member = member;
+	public void setMembers(List<ClubMember> member) {
+		this.members = member;
 	}
 
 	// --------------------------------------------------------------------------
 
 	public ClubManager findManager(String loginEmail) {
 		//
-		List<ClubManager> managers = this.getManager();
+		List<ClubManager> managers = this.getManagers();
 		for (ClubManager manager : managers) {
 			if (!manager.isKingManager() && manager.getEmail().equals(loginEmail)) {
 				return manager;
@@ -112,10 +112,10 @@ public class Club {
 
 	public ClubManager getKingManager() {
 		//
-		if (manager != null) {
-			for (ClubManager man : manager) {
-				if (man.isKingManager()) {
-					return man;
+		if (managers != null) {
+			for (ClubManager manager : managers) {
+				if (manager.isKingManager()) {
+					return manager;
 				}
 			}
 		}

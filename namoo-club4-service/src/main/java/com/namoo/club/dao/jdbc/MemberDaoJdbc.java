@@ -342,7 +342,7 @@ public class MemberDaoJdbc implements MemberDao {
 	}
 
 	@Override
-	public void deleteClubKingManger(int clubNo) {
+	public void deleteClubKingManager(int clubNo) {
 		// 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -490,7 +490,7 @@ public class MemberDaoJdbc implements MemberDao {
 	}
 
 	@Override
-	public ClubManager readClubManager(int clubNo, String email, String type) {
+	public ClubManager readClubManager(int clubNo, String email) {
 		//
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -498,11 +498,10 @@ public class MemberDaoJdbc implements MemberDao {
 		ClubManager clubManager = null;
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type=? AND a.email=?";
+			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type='b' AND a.email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
-			pstmt.setString(2, type);
-			pstmt.setString(3, email);
+			pstmt.setString(2, email);
 			
 			rset = pstmt.executeQuery();
 			
@@ -511,9 +510,37 @@ public class MemberDaoJdbc implements MemberDao {
 				String _email = rset.getString("email");
 				String name = rset.getString("name");
 				clubManager = new ClubManager(_clubNo, new SocialPerson(_email, name));
-				if ("a".equals(type)) {
-					clubManager.setKingManager(true);
-				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw NamooClubExceptionFactory.createRuntime("커뮤니티 멤버를 조회하는 중 오류가 발생하였습니다.");
+		} finally {
+			if (pstmt != null)try {pstmt.close();} catch (SQLException e) {	}
+			if (conn != null)try {conn.close();} catch (SQLException e) {}
+		}
+		return clubManager;
+	}
+	
+	@Override
+	public ClubManager readClubKingManager(int clubNo) {
+		//
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ClubManager clubManager = null;
+		try {
+			conn = dataSource.getConnection();
+			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type='a'";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, clubNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				int _clubNo = rset.getInt("club_no");
+				String _email = rset.getString("email");
+				String name = rset.getString("name");
+				clubManager = new ClubManager(_clubNo, new SocialPerson(_email, name));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

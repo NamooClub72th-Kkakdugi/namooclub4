@@ -51,12 +51,12 @@ public class PresClub {
 	}
 	
 	public List<ClubMember> getMembers() {
-		return club.getMember();
+		return club.getMembers();
 	}
 	
 	public List<ClubManager> getManager() {
 		
-		return club.getManager();
+		return club.getManagers();
 	}
 	
 	public ClubManager getKingManager() {

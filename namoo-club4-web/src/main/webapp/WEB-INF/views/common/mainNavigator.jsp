@@ -13,12 +13,22 @@
 			</button>
 			<a class="navbar-brand">${loginUser.name}님이 로그인 중입니다.</a>
 		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown">관리 <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="${ctx}/community/comManagement">커뮤니티 관리센터</a></li>
+					<li><a href="../management/clubMemberList.html">클럽 관리센터</a></li>
+					<li class="divider"></li>
+				</ul></li>
+		</ul>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="${ctx}/withdrawl">회원탈퇴</a></li>
 				<li><a href="${ctx}/logout">로그아웃</a></li>
 			</ul>
 		</div>
+
 	</div>
 </div>
 </html>

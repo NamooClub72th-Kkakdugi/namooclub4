@@ -37,7 +37,7 @@ public class ClubServiceTest extends DbCommonTest {
 		assertEquals(1, club.getComNo());
 		assertEquals("TestClub", club.getName());
 		assertEquals("TestClub's description", club.getDescription());
-		assertEquals("wntjd", clubService.findClubKingManager(club.getClubNo(), "wntjd").getEmail());
+		assertEquals("wntjd", clubService.findClubKingManager(club.getClubNo()).getEmail());
 		
 	}
 
@@ -54,8 +54,8 @@ public class ClubServiceTest extends DbCommonTest {
 		assertEquals("club1", club.getName());
 		assertEquals("club1_des", club.getDescription());
 		assertEquals("박상희", club.getKingManager().getName()); // 매니저 이름 확인
-		assertEquals(2, club.getManager().size()); // 매니저의 숫자 확인(매니저 + 킹매니저 = 2)
-		assertEquals(3, club.getMember().size()); //멤버 숫자 확인(멤버 + 매니저 + 킹매니저 = 3)
+		assertEquals(2, club.getManagers().size()); // 매니저의 숫자 확인(매니저 + 킹매니저 = 2)
+		assertEquals(3, club.getMembers().size()); //멤버 숫자 확인(멤버 + 매니저 + 킹매니저 = 3)
 	}
 	
 	@Test
@@ -65,8 +65,8 @@ public class ClubServiceTest extends DbCommonTest {
 		clubService.joinAsMember(4, "wntjd");
 		Club club = clubService.findClub(4);
 		//검증
-		assertThat(club.getMember().size(), is(1));
-		assertThat(club.getMember().get(0).getEmail(), is("wntjd"));
+		assertThat(club.getMembers().size(), is(1));
+		assertThat(club.getMembers().get(0).getEmail(), is("wntjd"));
 	}
 
 	@Test
@@ -166,10 +166,10 @@ public class ClubServiceTest extends DbCommonTest {
 	@DatabaseSetup(DATASET_XML)
 	public void testCommissionKingManagerClub() {
 		//
-		clubService.commissionGoKingManagerClub(1, new SocialPerson("ekdgml", "박상희"), new SocialPerson("hong", "홍길동"));
+		clubService.commissionKingManagerClub(1, new SocialPerson("ekdgml", "박상희"), new SocialPerson("hong", "홍길동"));
 		//
-		assertEquals("hong", clubService.findClubKingManager(1, "hong").getEmail());
-		assertThat(clubService.findClubKingManager(1, "hong").getName(), is("홍길동"));
+		assertEquals("hong", clubService.findClubKingManager(1).getEmail());
+		assertThat(clubService.findClubKingManager(1).getName(), is("홍길동"));
 		assertThat(clubService.findClubManager(1, "ekdgml").getName(), is("박상희"));
 	}
 }

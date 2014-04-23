@@ -26,11 +26,12 @@ public interface MemberDao {
 	void deleteAllClubManager(int clubNo);
 	void deleteClubMember(int clubNo, String email);
 	void deleteClubManager(int clubNo, String email);
-	void deleteClubKingManger(int clubNo);
+	void deleteClubKingManager(int clubNo);
 	List<ClubMember> readAllClubMembers(int clubNo);
 	List<ClubManager> readAllClubManagers(int clubNo);
 	ClubMember readClubMember(int clubNo, String email); 
-	ClubManager readClubManager(int clubNo, String email, String type);
+	ClubManager readClubManager(int clubNo, String email);
+	ClubManager readClubKingManager(int clubNo);
 	
 
 }
