@@ -10,8 +10,8 @@ import dom.entity.CommunityMember;
 public interface MemberDao {
 	//
 	//community
-	CommunityManager addCommunityManager(int comNo, CommunityManager comManager);
-	CommunityMember addCommunityMember(int comNo, CommunityMember comMember);
+	void addCommunityManager(int comNo, CommunityManager comManager);
+	void addCommunityMember(int comNo, CommunityMember comMember);
 	CommunityMember readCommunityMember(int comNo, String email);
 	CommunityManager readCommunityManager(int comNo);
 	List<CommunityMember> readAllCommunityMember(int comNo);
@@ -20,8 +20,8 @@ public interface MemberDao {
 	void deleteCommunityManager(int comNo);
 	
 	//club
-	ClubMember addClubMember(ClubMember clubMember);
-	ClubManager addClubManager(ClubManager clubManager);
+	void addClubMember(ClubMember clubMember);
+	void addClubManager(ClubManager clubManager);
 	void deleteAllClubMember(int clubNo);
 	void deleteAllClubManager(int clubNo);
 	void deleteClubMember(int clubNo, String email);

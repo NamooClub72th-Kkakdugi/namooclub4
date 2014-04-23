@@ -28,12 +28,10 @@ public class MemberDaoJdbc implements MemberDao {
 	private DataSource dataSource;
 	
 	@Override
-	public CommunityManager addCommunityManager(int comNo, CommunityManager comManager) {
+	public void addCommunityManager(int comNo, CommunityManager comManager) {
 		//
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
-		CommunityManager manager = null;
 
 		try {
 			conn = dataSource.getConnection();
@@ -52,17 +50,14 @@ public class MemberDaoJdbc implements MemberDao {
 			if (pstmt != null)try {pstmt.close();} catch (SQLException e) {}
 			if (conn != null)try {conn.close();} catch (SQLException e) {}
 		}
-		return manager;
 	}
 
 	@Override
-	public CommunityMember addCommunityMember(int comNo, CommunityMember comMember) {
+	public void addCommunityMember(int comNo, CommunityMember comMember) {
 		//
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
-		CommunityMember member = null;
 
 		try {
 			conn = dataSource.getConnection();
@@ -82,7 +77,6 @@ public class MemberDaoJdbc implements MemberDao {
 			if (pstmt != null)try {pstmt.close();} catch (SQLException e) {}
 			if (conn != null)try {conn.close();} catch (SQLException e) {}
 		}
-		return member;
 	}
 	
 	@Override
@@ -246,7 +240,7 @@ public class MemberDaoJdbc implements MemberDao {
 	
 	//------------------------------------------------------------------------------------------------------------------
 	@Override
-	public ClubMember addClubMember(ClubMember clubMember) {
+	public void addClubMember(ClubMember clubMember) {
 		// 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -270,11 +264,10 @@ public class MemberDaoJdbc implements MemberDao {
 			 if ( pstmt != null) try { pstmt.close(); } catch (SQLException e) { }
 			 if ( conn != null) try { conn.close(); } catch (SQLException e) { }
 		}
-		return clubMember;
 	}
 
 	@Override
-	public ClubManager addClubManager(ClubManager clubManager) {
+	public void addClubManager(ClubManager clubManager) {
 		// 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -293,7 +286,6 @@ public class MemberDaoJdbc implements MemberDao {
 			
 			pstmt.executeUpdate();
 			
-			resultSet = pstmt.getGeneratedKeys();
 		} catch (SQLException e) {
 				e.printStackTrace();
 		} finally {
@@ -301,7 +293,6 @@ public class MemberDaoJdbc implements MemberDao {
 			 if ( pstmt != null) try { pstmt.close(); } catch (SQLException e) { }
 			 if ( conn != null) try { conn.close(); } catch (SQLException e) { }
 		}
-		return clubManager;
 	}
 	
 	@Override
@@ -510,8 +501,8 @@ public class MemberDaoJdbc implements MemberDao {
 			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type=? AND a.email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
-			pstmt.setString(2, email);
-			pstmt.setString(3, type);
+			pstmt.setString(2, type);
+			pstmt.setString(3, email);
 			
 			rset = pstmt.executeQuery();
 			

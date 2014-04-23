@@ -56,9 +56,9 @@ public interface ClubService {
 	 */
 	public ClubMember findClubMember(int clubNo, String email);
 	
-	public ClubManager findClubManager(int clubNo, String email, String type);
+	public ClubManager findClubManager(int clubNo, String email);
 	
-	public ClubManager findClubKingManager(int clubNo, String email, String type);
+	public ClubManager findClubKingManager(int clubNo, String email);
 	
 	/**
 	 * 클럽 회원목록 조회

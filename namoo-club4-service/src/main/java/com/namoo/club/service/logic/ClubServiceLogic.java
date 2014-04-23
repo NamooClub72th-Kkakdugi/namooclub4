@@ -176,19 +176,6 @@ public class ClubServiceLogic implements ClubService {
 			unjoinClubs.removeAll(remove);
 		}
 		return unjoinClubs;
-		
-		
-		
-		// List<Club> clubs = clubDao.readAllClubs(comNo);
-		// if (clubs == null)
-		// return null;
-		//
-		// for(Club club : clubs) {
-		// if (memberDao.readClubMember(club.getClubNo(), email) != null) {
-		// clubs.remove(club);
-		// }
-		// }
-		// return clubs;
 	}
 
 	@Override
@@ -248,7 +235,7 @@ public class ClubServiceLogic implements ClubService {
 	}
 
 	@Override
-	public ClubManager findClubManager(int clubNo, String email, String type) {
+	public ClubManager findClubManager(int clubNo, String email) {
 		//
 		Club club = clubDao.readClub(clubNo);
 		if (club == null) {
@@ -259,7 +246,7 @@ public class ClubServiceLogic implements ClubService {
 	}
 
 	@Override
-	public ClubManager findClubKingManager(int clubNo, String email, String type) {
+	public ClubManager findClubKingManager(int clubNo, String email) {
 		//
 		Club club = clubDao.readClub(clubNo);
 		if (club == null) {

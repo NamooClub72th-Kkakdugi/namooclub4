@@ -121,7 +121,7 @@ public class MemberDaoTest extends DbCommonTest{
 		ClubManager clubKingManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"), true);
 		dao.addClubManager(clubKingManager);
 		//검증
-		assertEquals("이주성", dao.readClubManager(2, "wnttjd", "a").getName());
+		assertEquals("이주성", dao.readClubManager(2, "wntjd", "a").getName());
 	}
 
 	@Test
