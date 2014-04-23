@@ -69,9 +69,8 @@ body {
 
 		<!-- body -->
 		<div class="info-body">
-			<form action="${ctx}/club/clubList.do" method="get">
+			<form action="${ctx}/club/clubList/${communityNo}" method="get">
 				<h3>탈퇴 안내</h3>
-				<input type="hidden" name="cmId" value="${cmId}" />
 				<p>탈퇴가 완료되었습니다.</p>
 				<input type="submit" value="확인" />
 			</form>

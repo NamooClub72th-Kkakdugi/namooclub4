@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.namoo.club.dao.MemberDao;
 import com.namoo.club.shared.exception.NamooClubExceptionFactory;
 
-import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
 import dom.entity.CommunityManager;
@@ -285,11 +284,12 @@ public class MemberDaoJdbc implements MemberDao {
 			conn = dataSource.getConnection();
 			
 			String sql = "INSERT INTO clubmember(club_no, email, type)"
-					+ " VALUES(?, ?, 'b')";
+					+ " VALUES(?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, clubManager.getClubNo());
 			pstmt.setString(2, clubManager.getEmail());
+			pstmt.setString(3, clubManager.isKingManager() ? "a" : "b");
 			
 			pstmt.executeUpdate();
 			
@@ -302,32 +302,6 @@ public class MemberDaoJdbc implements MemberDao {
 			 if ( conn != null) try { conn.close(); } catch (SQLException e) { }
 		}
 		return clubManager;
-	}
-	
-	@Override
-	public ClubKingManager addKingManager(ClubKingManager clubKingManager) {
-		// 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "INSERT INTO clubmember(club_no, email, type) VALUES(?, ?, 'a')";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, clubKingManager.getClubNo());
-			pstmt.setString(2, clubKingManager.getEmail());
-			
-			pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-				e.printStackTrace();
-		} finally {
-			 if ( pstmt != null) try { pstmt.close(); } catch (SQLException e) { }
-			 if ( conn != null) try { conn.close(); } catch (SQLException e) { }
-		}
-		return clubKingManager;
 	}
 	
 	@Override
@@ -497,7 +471,7 @@ public class MemberDaoJdbc implements MemberDao {
 		List<ClubManager> managers = new ArrayList<>();
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember a JOIN user b ON a.email = b.email WHERE club_no = ? AND type IN ('a','b') ORDER BY club_no";
+			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember a JOIN user b ON a.email = b.email WHERE club_no = ? AND type IN ('a','b') ORDER BY club_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
 			
@@ -507,7 +481,11 @@ public class MemberDaoJdbc implements MemberDao {
 				int clubNo2 = rset.getInt("club_no");
 				String email = rset.getString("email");
 				String name = rset.getString("name");
+				String type = rset.getString("type");
 				ClubManager clubManager = new ClubManager(clubNo2, new SocialPerson(email, name));
+				if ("a".equals(type)) {
+					clubManager.setKingManager(true);
+				}
 				managers.add(clubManager);
 			}
 		} catch (SQLException e) {
@@ -521,7 +499,7 @@ public class MemberDaoJdbc implements MemberDao {
 	}
 
 	@Override
-	public ClubManager readClubManager(int clubNo, String email) {
+	public ClubManager readClubManager(int clubNo, String email, String type) {
 		//
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -529,10 +507,11 @@ public class MemberDaoJdbc implements MemberDao {
 		ClubManager clubManager = null;
 		try {
 			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type ='b' AND a.email=?";
+			String sql = "SELECT a.club_no, a.email, b.name, a.type FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type=? AND a.email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, clubNo);
 			pstmt.setString(2, email);
+			pstmt.setString(3, type);
 			
 			rset = pstmt.executeQuery();
 			
@@ -541,6 +520,9 @@ public class MemberDaoJdbc implements MemberDao {
 				String _email = rset.getString("email");
 				String name = rset.getString("name");
 				clubManager = new ClubManager(_clubNo, new SocialPerson(_email, name));
+				if ("a".equals(type)) {
+					clubManager.setKingManager(true);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -551,39 +533,4 @@ public class MemberDaoJdbc implements MemberDao {
 		}
 		return clubManager;
 	}
-
-	@Override
-	public ClubKingManager readClubKingManager(int clubNo) {
-		//
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ClubKingManager clubKingManager = null;
-		try {
-			conn = dataSource.getConnection();
-			String sql = "SELECT a.club_no, a.email, b.name FROM clubmember A JOIN user b ON a.email=b.email WHERE a.club_no = ? AND a.type ='a'";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, clubNo);
-		
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				int clubNo2 = rset.getInt("club_no");
-				String email = rset.getString("email");
-				String name = rset.getString("name");
-				clubKingManager = new ClubKingManager(clubNo2, new SocialPerson(email, name));
-		
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw NamooClubExceptionFactory.createRuntime("커뮤니티 멤버를 조회하는 중 오류가 발생하였습니다.");
-		} finally {
-			if (pstmt != null)try {pstmt.close();} catch (SQLException e) {	}
-			if (conn != null)try {conn.close();} catch (SQLException e) {}
-		}
-		return clubKingManager;
-	}
-
-	
-	
 }

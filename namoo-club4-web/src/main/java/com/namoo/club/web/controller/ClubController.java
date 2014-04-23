@@ -102,18 +102,21 @@ public class ClubController {
 		return new RedirectView("/club/clubList/"+comNo, true);
 	}
 	
-	@RequestMapping(value="/clubJoinInput", method=RequestMethod.GET)
-	public String clubJoinInput() { 
+	@RequestMapping(value="/clubJoinInput/{clubNo}", method=RequestMethod.GET)
+	public ModelAndView clubJoinInput(@PathVariable("clubNo") int clubNo) { 
 		//
-		return "/club/clubJoinInput";
+		Club club = clubService.findClub(clubNo);
+		return new ModelAndView("/club/clubJoinInput", "club", club);
 	}
 	
-	@RequestMapping(value="/clubJoinInput", method=RequestMethod.POST)
-	public String clubJoinInput(@RequestParam("clubNo") int clubNo, @PathVariable("email") String email) { 
+	@RequestMapping(value="/clubJoin/{clubNo}", method=RequestMethod.GET)
+	public RedirectView clubJoin(HttpServletRequest req, @PathVariable("clubNo") int clubNo) { 
 		//
-		clubService.joinAsMember(clubNo, email);
-		
-		return "/club/clubList";
+		Club club = clubService.findClub(clubNo);
+		int comNo = club.getComNo();
+		SessionManager manager = new SessionManager(req);
+		clubService.joinAsMember(clubNo, manager.getLoginEmail());
+		return new RedirectView("/club/clubList/"+comNo, true);
 	}
 	
 	@RequestMapping(value="/clubMemberList", method=RequestMethod.GET)
@@ -137,6 +140,27 @@ public class ClubController {
 		//
 		clubService.removeClub(clubNo, true);
 		return new RedirectView("/club/clubList/"+communityNo, true);
+	}
+	
+	@RequestMapping(value="/clubWithdrawlCheck/{clubNo}", method=RequestMethod.GET) 
+	public ModelAndView withdrawlCheckClub(@PathVariable("clubNo") int clubNo) {
+		//
+		Map<String, Object> map = new HashMap<String, Object>();
+		Club club = clubService.findClub(clubNo);
+		String communityName = comService.findCommunity(club.getComNo()).getName();
+		
+		map.put("club", club);
+		map.put("communityName", communityName);
+		return new ModelAndView("/inform/clubWithdrawlCheck", map);
+	}
+	
+	@RequestMapping(value="/clubWithdrawl/{clubNo}", method=RequestMethod.POST)
+	public ModelAndView withdrawlClub(@PathVariable("clubNo") int clubNo, HttpServletRequest req) {
+		//
+		int comNo = clubService.findClub(clubNo).getComNo();
+		SessionManager manager = new SessionManager(req);
+		clubService.withdrawalClub(clubNo, manager.getLoginEmail());
+		return new ModelAndView("/inform/clubWithdrawl", "communityNo", comNo);
 	}
 	
 	//-----------------------------------------------------------------------------------------

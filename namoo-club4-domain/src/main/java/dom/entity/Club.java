@@ -14,7 +14,6 @@ public class Club {
 	
 	private List<ClubManager> manager;
 	private List<ClubMember> member;
-	private ClubKingManager kingManager;
 
 	// ---------------------------------------------------------------------------------------------
 	public Club(int categoryNo, int comNo, String name, String description) {
@@ -81,14 +80,6 @@ public class Club {
 		this.openDate = openDate;
 	}
 
-	public ClubKingManager getKingManager() {
-		return kingManager;
-	}
-	
-	public void setKingManager(ClubKingManager kingManager) {
-		this.kingManager = kingManager;
-	}
-
 	public List<ClubManager> getManager() {
 		return manager;
 	}
@@ -113,6 +104,18 @@ public class Club {
 		for (ClubManager manager : managers) {
 			if (manager.getEmail().equals(loginEmail)) {
 				return manager;
+			}
+		}
+		return null;
+	}
+
+	public ClubManager getKingManager() {
+		// 
+		if (manager != null) {
+			for (ClubManager man : manager) {
+				if (man.isKingManager()) {
+					return man;
+				}
 			}
 		}
 		return null;

@@ -76,16 +76,16 @@
 											<c:choose>
 												<c:when test="${club.isManager()}">
 													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubRemove/${club.clubNo}'">클럽 삭제하기</button>
-													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">권한 위임하기</button>
+													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">매니저 권한 위임하기</button>
 												</c:when>
 												<c:when test="${club.isKingManager()}">
 													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubRemove/${club.clubNo}'">클럽 삭제하기</button>
 													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/commission/clubSelectMng.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">관리자 지정하기</button>
-													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">권한 위임하기</button>
+													<button class="label label-info" onclick="location.href='${ctx}/commission/clubSelectMem.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">대표관리자 권한 위임하기</button>
 												</c:when>
 												<c:otherwise>
 													<button type="button" class="btn btn-default btn-sm" disabled="disabled"onclick="location.href='${ctx}/inform/clubRemoveCheck.do?clubNo=${club.clubNo}&comNo=${community.comNo}'">클럽 삭제하기</button>
-													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/inform/clubWithdrawlCheck.do?clubNo=${club.clubNo}&comNo=${community.comNo}'">멤버탈퇴 신청하기</button>
+													<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubWithdrawlCheck/${club.clubNo}'">멤버탈퇴 신청하기</button>
 												</c:otherwise>
 											</c:choose></li>
 									</ul>
@@ -98,16 +98,13 @@
 							<h2 id="container">미가입 커뮤니티</h2>
 						</div>
 						<ul class="list-group">
-							<li class="list-group-item"><c:forEach var="club" items="${unjoinClubs}">
+							<li class="list-group-item">
+							<c:forEach var="club" items="${unJoinClubs}">
 									<ul class="list-group">
 										<li class="list-group-item"><span class="badge"></span>
-											<h4>
-												<span class="label label-primary"></span>&nbsp; <a
-													href="../team/index.html">${club.name}</a>
-											</h4>
+											<h4><span class="label label-primary"></span>&nbsp;${club.name}</h4>
 											<p>${club.description}</p>
-											<button type="button" class="btn btn-default btn-sm"
-												onclick="location.href='${ctx}/club/clubJoinInput.xhtml?clubNo=${club.clubNo}&comNo=${community.comNo}'">클럽가입하기</button>
+											<button type="button" class="btn btn-default btn-sm" onclick="location.href='${ctx}/club/clubJoinInput/${club.clubNo}'">클럽가입하기</button>
 									</ul>
 								</c:forEach>
 						</ul>

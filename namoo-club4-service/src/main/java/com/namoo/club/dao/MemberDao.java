@@ -2,7 +2,6 @@ package com.namoo.club.dao;
 
 import java.util.List;
 
-import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
 import dom.entity.CommunityManager;
@@ -23,7 +22,6 @@ public interface MemberDao {
 	//club
 	ClubMember addClubMember(ClubMember clubMember);
 	ClubManager addClubManager(ClubManager clubManager);
-	ClubKingManager addKingManager(ClubKingManager clubKingManager);
 	void deleteAllClubMember(int clubNo);
 	void deleteAllClubManager(int clubNo);
 	void deleteClubMember(int clubNo, String email);
@@ -32,8 +30,7 @@ public interface MemberDao {
 	List<ClubMember> readAllClubMembers(int clubNo);
 	List<ClubManager> readAllClubManagers(int clubNo);
 	ClubMember readClubMember(int clubNo, String email); 
-	ClubManager readClubManager(int clubNo, String email);
-	ClubKingManager readClubKingManager(int clubNo);
+	ClubManager readClubManager(int clubNo, String email, String type);
 	
 
 }

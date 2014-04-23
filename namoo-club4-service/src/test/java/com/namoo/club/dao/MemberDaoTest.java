@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
 import dom.entity.CommunityManager;
@@ -109,20 +108,20 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testAddClubManager() {
 		//
-		ClubManager clubManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"));
+		ClubManager clubManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"), false);
 		dao.addClubManager(clubManager);
 		//검증
-		assertEquals("이주성", dao.readClubManager(2, "wntjd").getName());
+		assertEquals("이주성", dao.readClubManager(2, "wntjd", "b").getName());
 	}
 
 	@Test
 	@DatabaseSetup(DATASET_XML)
-	public void testAddKingManager() {
+	public void testAddClubManager_ForKing() {
 		//
-		ClubKingManager clubKingManager = new ClubKingManager(2, new SocialPerson("wntjd", "이주성"));
-		dao.addKingManager(clubKingManager);
+		ClubManager clubKingManager = new ClubManager(2, new SocialPerson("wntjd", "이주성"), true);
+		dao.addClubManager(clubKingManager);
 		//검증
-		assertEquals("이주성", dao.readClubKingManager(2).getName());
+		assertEquals("이주성", dao.readClubManager(2, "wnttjd", "a").getName());
 	}
 
 	@Test
@@ -196,7 +195,7 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testReadClubManager() {
 		//
-		ClubManager clubManager = dao.readClubManager(1, "hong");
+		ClubManager clubManager = dao.readClubManager(1, "hong", "b");
 		assertEquals("홍길동", clubManager.getName());
 	}
 
@@ -204,7 +203,7 @@ public class MemberDaoTest extends DbCommonTest{
 	@DatabaseSetup(DATASET_XML)
 	public void testReadClubKingManager() {
 		//
-		ClubKingManager clubKingManager = dao.readClubKingManager(1);
+		ClubManager clubKingManager = dao.readClubManager(1, "ekdgml", "a");
 		assertEquals("박상희", clubKingManager.getName());
 	}
 

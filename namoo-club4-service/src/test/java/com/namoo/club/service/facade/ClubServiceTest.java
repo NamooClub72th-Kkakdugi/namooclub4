@@ -37,7 +37,7 @@ public class ClubServiceTest extends DbCommonTest {
 		assertEquals(1, club.getComNo());
 		assertEquals("TestClub", club.getName());
 		assertEquals("TestClub's description", club.getDescription());
-		assertEquals("wntjd", clubService.findClubKingManager(club.getClubNo()).getEmail());
+		assertEquals("wntjd", clubService.findClubManager(club.getClubNo(), "wntjd", "b"));
 		
 	}
 
@@ -156,7 +156,7 @@ public class ClubServiceTest extends DbCommonTest {
 		clubService.commissionManagerClub(1, new SocialPerson("hong", "홍길동"), new SocialPerson("wntjd", "이주성"));
 		//
 		assertEquals(2, clubService.findAllClubManager(1).size());
-		assertThat(clubService.findClubManager(1, "wntjd").getName(), is("이주성"));
+		assertThat(clubService.findClubManager(1, "wntjd", "b").getName(), is("이주성"));
 		assertThat(clubService.findClubMember(1, "hong").getName(), is("홍길동"));
 		
 		
@@ -168,8 +168,8 @@ public class ClubServiceTest extends DbCommonTest {
 		//
 		clubService.commissionGoKingManagerClub(1, new SocialPerson("ekdgml", "박상희"), new SocialPerson("hong", "홍길동"));
 		//
-		assertEquals("hong", clubService.findClubKingManager(1).getEmail());
-		assertThat(clubService.findClubKingManager(1).getName(), is("홍길동"));
-		assertThat(clubService.findClubManager(1, "ekdgml").getName(), is("박상희"));
+		assertEquals("hong", clubService.findClubKingManager(1, "hong", "a").getEmail());
+		assertThat(clubService.findClubKingManager(1, "hong", "a").getName(), is("홍길동"));
+		assertThat(clubService.findClubManager(1, "ekdgml", "b").getName(), is("박상희"));
 	}
 }

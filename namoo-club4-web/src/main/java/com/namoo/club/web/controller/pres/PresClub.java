@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import dom.entity.Club;
-import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
 
@@ -60,7 +59,7 @@ public class PresClub {
 		return club.getManager();
 	}
 	
-	public ClubKingManager getKingManager() {
+	public ClubManager getKingManager() {
 		return club.getKingManager();
 	}
 
@@ -94,7 +93,7 @@ public class PresClub {
 	
 	public boolean isKingManager() {
 		//
-		ClubKingManager manager = club.getKingManager();
+		ClubManager manager = club.getKingManager();
 		return (manager != null && manager.getEmail().equals(loginEmail)) ? true : false; 
 	}
 }

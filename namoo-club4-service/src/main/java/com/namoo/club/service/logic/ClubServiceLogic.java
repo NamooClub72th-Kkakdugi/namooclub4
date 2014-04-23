@@ -14,7 +14,6 @@ import com.namoo.club.service.facade.ClubService;
 import com.namoo.club.shared.exception.NamooClubExceptionFactory;
 
 import dom.entity.Club;
-import dom.entity.ClubKingManager;
 import dom.entity.ClubManager;
 import dom.entity.ClubMember;
 import dom.entity.SocialPerson;
@@ -43,7 +42,7 @@ public class ClubServiceLogic implements ClubService {
 		Club club = new Club(categoryNo, communityNo, clubName, description, new SocialPerson(email, person.getName()));
 		int clubNo = clubDao.createClub(communityNo, club);
 
-		memberDao.addKingManager(new ClubKingManager(clubNo, person));
+		memberDao.addClubManager(new ClubManager(clubNo, person, true));
 		return club;
 	}
 
@@ -65,7 +64,6 @@ public class ClubServiceLogic implements ClubService {
 	public Club findClub(int clubNo) {
 		//
 		Club club = clubDao.readClub(clubNo);
-		club.setKingManager(memberDao.readClubKingManager(clubNo));
 		club.setManager(memberDao.readAllClubManagers(clubNo));
 		club.setMember(memberDao.readAllClubMembers(clubNo));
 		return club;
@@ -202,7 +200,7 @@ public class ClubServiceLogic implements ClubService {
 
 		List<Club> managers = new ArrayList<>();
 		for (Club club : clubs) {
-			if (memberDao.readClubManager(club.getClubNo(), email) != null) {
+			if (memberDao.readClubManager(club.getClubNo(), email, "b") != null) {
 
 				managers.add(club);
 			}
@@ -233,10 +231,10 @@ public class ClubServiceLogic implements ClubService {
 	@Override
 	public void commissionGoKingManagerClub(int clubNo, SocialPerson originPerson, SocialPerson nwPerson) {
 		//
-		memberDao.deleteClubKingManger(clubNo);
-		memberDao.addClubManager(new ClubManager(clubNo, originPerson));
+		memberDao.deleteClubManager(clubNo, originPerson.getEmail());
+		memberDao.addClubManager(new ClubManager(clubNo, originPerson, false));
 		memberDao.deleteClubManager(clubNo, nwPerson.getEmail());
-		memberDao.addKingManager(new ClubKingManager(clubNo, nwPerson));
+		memberDao.addClubManager(new ClubManager(clubNo, nwPerson, true));
 	}
 
 	@Override
@@ -250,25 +248,25 @@ public class ClubServiceLogic implements ClubService {
 	}
 
 	@Override
-	public ClubManager findClubManager(int clubNo, String email) {
+	public ClubManager findClubManager(int clubNo, String email, String type) {
 		//
 		Club club = clubDao.readClub(clubNo);
 		if (club == null) {
 			throw NamooClubExceptionFactory.createRuntime("클럽이 존재하지 않습니다.");
 		}
 
-		return memberDao.readClubManager(clubNo, email);
+		return memberDao.readClubManager(clubNo, email, "b");
 	}
 
 	@Override
-	public ClubKingManager findClubKingManager(int clubNo) {
+	public ClubManager findClubKingManager(int clubNo, String email, String type) {
 		//
 		Club club = clubDao.readClub(clubNo);
 		if (club == null) {
 			throw NamooClubExceptionFactory.createRuntime("클럽이 존재하지 않습니다.");
 		}
 
-		return memberDao.readClubKingManager(clubNo);
+		return memberDao.readClubManager(clubNo, email, "a");
 	}
 
 	

@@ -62,7 +62,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-lg-10 col-lg-offset-2">
-									<button class="btn btn-primary" onclick="location.href='${ctx}/club/clubJoin.do?comNo=${comNo}&clubNo=${clubNo}'">확인</button>
+									<button class="btn btn-primary" onclick="location.href='${ctx}/club/clubJoin/${club.clubNo}'">확인</button>
 									<button class="btn btn-default">취소</button>
 								</div>
 							</div>
