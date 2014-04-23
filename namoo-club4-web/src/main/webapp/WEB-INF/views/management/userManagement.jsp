@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>나무커뮤니티</title>
-
+<%@ include file="/WEB-INF/views/common/common.jsp"%>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/mainNavigator.jsp"%>
 <!-- Header ========================================================================================== -->
 <header>
     <div class="container">
@@ -40,12 +42,13 @@
                     <h4>커뮤니티 관리</h4>
                 </div>
                 <div id="cat-navi">
-                    <a href="./commClubList.html" class="list-group-item hidden-xs">클럽관리</a>
-                    <a href="./commMemberList.html" class="list-group-item hidden-xs active">회원관리</a>
+                    <a href="${ctx}/management/clubManagement" class="list-group-item hidden-xs">클럽관리</a>
+                    <a href="${ctx}/management/userManagement" class="list-group-item hidden-xs">회원관리</a>
                     <select class="form-control">
                         <option selected="selected" value="">커뮤니티 관리</option>
-                        <option value="#">클럽관리</option>
-                        <option value="#">회원관리</option>
+                        <option value="${ctx}/management/clubManagement">클럽관리</option>
+                        <option value="${ctx}/management/userManagement">회원관리</option>
+                        <option value="${ctx}/management/myInfo">내정보관리</option>
                     </select></div>
             </div>
         </div>
@@ -133,7 +136,7 @@
                 </div>
             </div>
         </div>
+        <%@ include file="/WEB-INF/views/common/footer.jsp"%>
     </div>
-</div>
 </body>
 </html>

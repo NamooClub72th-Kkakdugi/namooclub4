@@ -17,8 +17,9 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown">관리 <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="${ctx}/community/comManagement">커뮤니티 관리센터</a></li>
-					<li><a href="../management/clubMemberList.html">클럽 관리센터</a></li>
+					<li><a href="${ctx}/management/comManagement">커뮤니티 관리센터</a></li>
+					<li><a href="${ctx}/management/clubManagement">클럽 관리센터</a></li>
+					<li><a href="${ctx}/management/myInfo">내정보 관리센터</a></li>
 					<li class="divider"></li>
 				</ul></li>
 		</ul>

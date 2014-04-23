@@ -240,7 +240,7 @@ public class CommunityServiceLogic implements CommunityService {
 
 		List<Community> managers = new ArrayList<>();
 		for (Community community : commnities) {
-			if (memberDao.readCommunityManager(community.getComNo()) != null) {
+			if (memberDao.readCommunityManager(community.getComNo()).getEmail().equals(email)) {
 				managers.add(community);
 			}
 		}
